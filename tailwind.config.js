@@ -1,6 +1,9 @@
 // /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./pages/**/*.{js,ts,jsx,tsx}", "./shared/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -12,7 +15,7 @@ module.exports = {
         buttonShadow: "#ffeb85",
       },
       boxShadow: {
-        yellow: "3px 5px 2px 2px #ffeb85",
+        yellow: "0 2px 2px 2px #ffeb85",
       },
     },
   },
