@@ -3,6 +3,7 @@ import Head from "next/head";
 
 import Navbar from "../components/Navbar";
 import LandingPage from "../components/LandingPage";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
       <div>
         <Navbar />
         <LandingPage />
-        <footer />
+        <Footer />
       </div>
     </React.Fragment>
   );
