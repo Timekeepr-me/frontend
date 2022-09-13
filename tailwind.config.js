@@ -15,7 +15,7 @@ module.exports = {
         buttonShadow: "#ffeb85",
       },
       boxShadow: {
-        yellow: "0 2px 2px 2px #ffeb85",
+        yellow: "0 2px 2px 1px #ffeb85",
       },
     },
   },
