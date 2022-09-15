@@ -17,7 +17,11 @@ export default function LandingPage() {
       )}
 
       {context.account ? (
-        <Button text="Enter App" click={null} />
+        <Link href="/calendar">
+          <a>
+            <Button text="Enter App" />
+          </a>
+        </Link>
       ) : (
         <Button text="Connect" click={context.connectWallet} />
       )}
