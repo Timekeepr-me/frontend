@@ -1,6 +1,9 @@
-export default function Button({ text }) {
+export default function Button({ text, click }) {
   return (
-    <button className="py-2.5 px-8 text-5xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow w-auto text-lg active:translate-y-[2px]">
+    <button
+      onClick={click}
+      className="flex items-center justify-center py-1 px-4 mx-8 my-auto text-5xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow w-auto text-lg active:translate-y-[2px]"
+    >
       {text}
     </button>
   );

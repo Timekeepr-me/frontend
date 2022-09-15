@@ -1,43 +1,40 @@
 import React, { useContext } from "react";
+import Link from "next/link";
+import Button from "./Button";
 import { WalletContext } from "../context/WalletContext";
 
 export default function Navbar() {
   const context = useContext(WalletContext);
 
+  const renderBtn = !context.account ? (
+    <Button click={context.connectWallet} text="Connect" />
+  ) : (
+    <Button
+      click={context.disconnectWallet}
+      text={`${context.account.substr(0, 4)}...${context.account.substr(-3)}`}
+    />
+  );
+
   return (
-    <nav className="flex flex-row items-center bg-[#535353] m-0 p-1 w-full h-1/12 font-base text-white text-center justify-between items-center">
+    <nav className="flex flex-row items-center bg-[#535353] m-0 py-2 px-1 w-full h-1/12 font-base text-white text-center justify-between items-center">
       <div className="ml-2">
-        <img src="/Logo.png" style={{ height: "3rem", width: "auto" }} />
+        <Link href="/">
+          <img src="/Logo.png" className="h-12 w-auto hover:cursor-pointer" />
+        </Link>
       </div>
       <div className="flex">
         <ul className="flex items-center">
           <li className="mx-6">
-            <a href="#">Dashboard</a>
+            <a href="/">Dashboard</a>
           </li>
           <li className="mx-6">
-            <a href="#">Calendar</a>
+            <Link href="/calendar">Calendar</Link>
           </li>
           <li className="mx-6">
-            <a href="#">Teams</a>
+            <a href="/">Teams</a>
           </li>
         </ul>
-        <div>
-          {!context.account ? (
-            <button
-              onClick={context.connectWallet}
-              className="flex items-center justify-center h-5/6 py-1 px-4 mx-8 my-auto text-5xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow w-auto text-lg active:translate-y-[2px]"
-            >
-              Connect
-            </button>
-          ) : (
-            <button
-              onClick={context.disconnectWallet}
-              className="flex items-center justify-center h-5/6 py-1 px-4 mx-8 my-auto text-5xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow w-auto text-lg active:translate-y-[2px]"
-            >
-              {context.account.substr(0, 4)}...{context.account.substr(-3)}
-            </button>
-          )}
-        </div>
+        <div>{renderBtn}</div>
       </div>
     </nav>
   );
