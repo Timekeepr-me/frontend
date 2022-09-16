@@ -27,7 +27,7 @@ const Calendar = () => {
   return (
     <div>
       <Navbar />
-      <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary">
+      <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary mb-8">
         <div className="col-span-1 flex flex-col justify-center items-center ">
           <div className="">
             <Button text="Day" click={() => setRange("day")} />
