@@ -1,7 +1,6 @@
 const date = new Date();
 const day = date.getDay();
+const month = date.getMonth();
 const year = date.getFullYear();
 
-export { date };
-
-console.log(date);
+export { date, month };
