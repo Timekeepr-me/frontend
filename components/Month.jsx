@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import DateDisplay from "./DateDisplay";
+import { DateContext } from "../context/DateContext";
 // import { date, month } from "../constants/date";
 
 const Month = () => {
-  const [month, setMonth] = useState(new Date().getMonth());
-  const [year, setYear] = useState(new Date().getFullYear());
+  const dateContext = useContext(DateContext);
 
   const datesArray = () => {
     const dates = [];
@@ -28,19 +28,17 @@ const Month = () => {
     });
   };
 
-  // const dayNum = () => {
-  //   const dates = datesArray();
-  //   return dates.map((day) => {
-  //     return <option value={day}>{day}</option>;
-  //   });
-  // };
-
   const handleSetMonth = (e) => {
     setMonth(e.target.value);
   };
 
   const handleSelectYear = (e) => {
     setYear(e.target.value);
+  };
+
+  const handleSetDate = (e) => {
+    e.preventDefault();
+    console.log(e.target);
   };
 
   return (
@@ -62,10 +60,13 @@ const Month = () => {
         {dateBlocks()}
       </div>
       <div className="flex flex-row justify-end mt-2">
-        <form className="flex">
+        <form onSubmit={handleSetDate} className="flex">
           <label>
-            Month:{" "}
-            <select value={month} onChange={handleSetMonth} className="mr-3">
+            <select
+              value={dateContext.month}
+              onChange={handleSetMonth}
+              className="mr-3"
+            >
               <option value="01">January</option>
               <option value="02">February</option>
               <option value="03">March</option>
@@ -81,14 +82,14 @@ const Month = () => {
             </select>
           </label>
           <label>
-            Year:{" "}
             <input
               type="number"
               id="year"
-              value={year}
+              value={dateContext.year}
               onChange={handleSelectYear}
             />
           </label>
+          <input type="submit" value="select" className="bg-black" />
         </form>
       </div>
     </>
