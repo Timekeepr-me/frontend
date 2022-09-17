@@ -12,4 +12,20 @@
   link {
     @apply cursor-pointer;
   }
+  form {
+    @apply flex
+    px-3 py-2
+    w-max
+    text-base
+    font-normal
+    text-white
+    bg-black 
+    rounded-xl
+    transition
+    ease-in-out;
+  }
+  select,
+  input {
+    @apply rounded bg-ternary text-black text-center w-fit ml-2;
+  }
 }
