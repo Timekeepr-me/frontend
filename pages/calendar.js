@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Navbar from "../components/Navbar";
 import Day from "../components/Day";
 import Week from "../components/Week";
 import Month from "../components/Month";
 import Button from "../components/Button";
+import { DateContext } from "../context/DateContext";
 
 const Calendar = () => {
   const [range, setRange] = useState("month");
 
+  const dateContext = useContext(DateContext);
   const renderRange = () => {
     switch (range) {
       case "day":

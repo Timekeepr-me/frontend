@@ -13,19 +13,17 @@
     @apply cursor-pointer;
   }
   form {
-    @apply flex
+    @apply flex flex-row
     px-3 py-2
     w-max
     text-base
     font-normal
-    text-white
-    bg-black 
-    rounded-xl
-    transition
-    ease-in-out;
+    text-black;
   }
-  select,
+  select {
+    @apply rounded-lg bg-black text-ternary text-center w-fit ml-1 py-2;
+  }
   input {
-    @apply rounded bg-ternary text-black text-center w-fit ml-2;
+    @apply rounded-lg bg-black text-ternary text-center w-fit ml-1 py-2;
   }
 }
