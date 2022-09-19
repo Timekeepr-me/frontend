@@ -46,8 +46,8 @@ const Week = () => {
           className="flex flex-col text-center border-r-2 border-black font-medium"
           key={day}
         >
-          <h3 className="mt-1">{day.day}</h3>
-          <h3>{weekdays(day.weekday)}</h3>
+          <h3 className="mt-1">{weekdays(day.weekday)}</h3>
+          <h3>{day.day}</h3>
         </div>
       );
     });

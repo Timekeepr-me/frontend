@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import DateDisplay from "./DateDisplay";
 import { DateContext } from "../context/DateContext";
+import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
 const Month = () => {
@@ -50,7 +51,7 @@ const Month = () => {
       } else {
         return (
           <div
-            key={uuidv4()}
+            key={DateTime.local(context.year, context.monthNum, day)}
             className={`flex items-start justify-end border-2 border-black rounded-lg px-2 bg-[#2f2f2f]`}
           >
             {day}

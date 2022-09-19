@@ -26,8 +26,6 @@ const Calendar = () => {
     }
   };
 
-  console.log();
-
   return (
     <div>
       <Navbar />
