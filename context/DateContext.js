@@ -19,15 +19,18 @@ const DateProvider = ({ children }) => {
   const firstOfMonth = DateTime.local(year, monthNum, 1, 0).weekday;
   const lastOfMonth = DateTime.local(year, monthNum, daysInMonth).weekday;
 
-  const handleDisplayDate = (day, month, year) => {
-    setDefaultDate(DateTime.local(String(year), String(month), String(day)));
-    console.log(defaultDate);
+  const handleDefaultDate = (day, month, year) => {
+    const date = DateTime.fromObject({ year, month, day });
+    setDefaultDate(date);
   };
 
-  console.log(DateTime.local(year, month, day).weekNumber);
+  useEffect(() => {
+    handleDefaultDate(day, month, year);
+  }, [day, month, year]);
 
   const value = {
     defaultDate,
+    setDefaultDate,
     day,
     setDay,
     monthName,
@@ -39,7 +42,6 @@ const DateProvider = ({ children }) => {
     daysInMonth,
     firstOfMonth,
     lastOfMonth,
-    handleDisplayDate,
     range,
     setRange,
   };
