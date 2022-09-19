@@ -31,7 +31,7 @@ export default function Navbar() {
             <Link href="/calendar">Calendar</Link>
           </li>
           <li className="mx-6">
-            <a href="/">Teams</a>
+            <a href="#">Teams</a>
           </li>
         </ul>
         <div>{renderBtn}</div>
