@@ -6,76 +6,80 @@ import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
 const DateDisplay = () => {
   const context = useContext(DateContext);
 
+  const renderDate = () => {
+    return context.defaultDate.toLocaleString(DateTime.DATE_FULL);
+  };
+
+  const handleToday = () => {
+    const date = DateTime.local();
+    return context.setDefaultDate(date);
+  };
+
+  const handleDayBack = () => {
+    console.log("handleDayBack");
+    const newDate = context.defaultDate.minus({ days: 1 });
+    context.setDefaultDate(() => newDate);
+    console.log(context.defaultDate);
+  };
+
+  const handleDayForward = () => {
+    const newDate = context.defaultDate.plus({ days: 1 });
+    context.setDefaultDate(() => newDate);
+  };
+
+  const handleWeekBack = () => {
+    const newDate = context.defaultDate.minus({ weeks: 1 });
+    context.setDefaultDate(() => newDate);
+  };
+
+  const handleWeekForward = () => {
+    const newDate = context.defaultDate.plus({ weeks: 1 });
+    context.setDefaultDate(() => newDate);
+  };
+
   const handleMonthBack = () => {
-    if (context.month === 1) {
-      context.setMonth(() => 12);
-      context.setYear((year) => year - 1);
-    } else {
-      return context.setMonth((month) => month - 1);
-    }
+    const newDate = context.defaultDate.minus({ months: 1 });
+    context.setDefaultDate((defaultDate) => newDate);
   };
 
   const handleMonthForward = () => {
-    if (context.month === 12) {
-      context.setMonth(() => 1);
-      context.setYear((year) => year + 1);
-    } else {
-      return context.setMonth((month) => month + 1);
-    }
+    const newDate = context.defaultDate.plus({ months: 1 });
+    context.setDefaultDate((defaultDate) => newDate);
   };
 
-  const handleBack = () => {
-    if (context.range === "month") {
-      handleMonthBack();
-      console.log(context.month, context.day, context.year);
-    } else if (context.range === "week") {
-      // context.setDay((day) => day - 7);
-    } else {
-      if (context.day > 1) {
-        // context.setDay((day) => day - 1);
-        // console.log("day", context.day);
-      } else {
-        // context.setMonth((month) => month - 1);
-        // context.setDay((day) => context.daysInMonth);
-      }
-    }
+  const handleBackNav = () => {
+    if (context.range === "month") return handleMonthBack();
+    else if (context.range === "week") return handleWeekBack();
+    else if (context.range === "day") return handleDayBack();
   };
 
-  const handleForward = () => {
-    if (context.range === "month") {
-      handleMonthForward();
-      console.log(context.month, context.day, context.year);
-    } else if (context.range === "week") {
-      // context.setDay((day) => day - 7);
-    } else {
-      if (context.day > 1) {
-        // context.setDay((day) => day - 1);
-        // console.log("day", context.day);
-      } else {
-        // context.setMonth((month) => month - 1);
-        // context.setDay((day) => context.daysInMonth);
-      }
-    }
+  const handleForwardNav = () => {
+    if (context.range === "month") return handleMonthForward();
+    if (context.range === "week") return handleWeekForward();
+    if (context.range === "day") return handleDayForward();
   };
 
   return (
     <div className="flex flex-row justify-between mt-2 ">
       <h1 className="flex text-white text-3xl font-bold mx-2">
-        {context.defaultDate.toLocaleString(DateTime.DATE_FULL)}
+        {renderDate()}
       </h1>
       <div className="flex">
         <button
           className="bg-white rounded-l-xl px-1 border-4 border-black mb-2 active:translate-y-1 py-auto"
-          onClick={handleBack}
+          onClick={handleBackNav}
         >
           <AiOutlineLeft style={{ height: "20px" }} />
         </button>
-        <button className="bg-white mx-2 px-1 border-4 border-black mb-2 active:translate-y-1">
+        <button
+          className="bg-white mx-2 px-1 border-4 border-black mb-2 active:translate-y-1"
+          onClick={handleToday}
+        >
           Today
         </button>
         <button
           className="bg-white rounded-r-xl px-1 border-4 border-black mb-2 active:translate-y-1"
-          onClick={handleForward}
+          onClick={handleForwardNav}
         >
           <AiOutlineRight style={{ height: "20px" }} />
         </button>

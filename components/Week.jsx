@@ -6,47 +6,48 @@ import { DateContext } from "../context/DateContext";
 const Week = () => {
   const context = useContext(DateContext);
 
-  const weekdayArray = () => {
-    let datesArray = [
-      { Mon: 0 },
-      { Tue: 0 },
-      { Wed: 0 },
-      { Thu: 0 },
-      { Fri: 0 },
-      { Sat: 0 },
-      { Sun: 0 },
-    ];
-    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    let weekdayCounter = context.weekdayToday;
-    let date = context.day;
-
-    while (weekdayCounter > 1) {
-      date--;
-      weekdayCounter--;
+  const weekdays = (day) => {
+    switch (day) {
+      case 1:
+        return "Mon";
+        break;
+      case 2:
+        return "Tue";
+        beak;
+      case 3:
+        return "Wed";
+        break;
+      case 4:
+        return "Thu";
+        break;
+      case 5:
+        return "Fri";
+        break;
+      case 6:
+        return "Sat";
+        break;
+      case 7:
+        return "Sun";
+        break;
     }
-
-    while (weekdayCounter <= 7) {
-      for (let dates of datesArray) {
-        dates[Object.keys(dates)] = date;
-        date++;
-        weekdayCounter++;
-      }
-    }
-    return datesArray;
   };
 
   const renderWeekdays = () => {
-    let dates = weekdayArray();
-    return dates.map((date) => {
-      const values = Object.values(date)[0];
-      const keys = Object.keys(date)[0];
+    let days = context.defaultDate.weekday;
+    const first = context.defaultDate.minus({ days: days - 1 });
+    let weekArray = [];
+    for (let i = 0; i < 7; i++) {
+      weekArray.push(first.plus({ days: `${i}` }));
+    }
+
+    return weekArray.map((day) => {
       return (
         <div
-          key={uuidv4()}
-          className={`flex flex-col text-center border-r-4 border-black p-2 pt-1`}
+          className="flex flex-col text-center border-r-2 border-black font-medium"
+          key={day}
         >
-          <p>{keys}</p>
-          <p>{values}</p>
+          <h3 className="mt-1">{day.day}</h3>
+          <h3>{weekdays(day.weekday)}</h3>
         </div>
       );
     });

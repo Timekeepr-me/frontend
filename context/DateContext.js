@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 import { DateTime } from "luxon";
 
 const DateContext = createContext();
@@ -18,15 +18,6 @@ const DateProvider = ({ children }) => {
   const monthNum = defaultDate.month;
   const firstOfMonth = DateTime.local(year, monthNum, 1, 0).weekday;
   const lastOfMonth = DateTime.local(year, monthNum, daysInMonth).weekday;
-
-  const handleDefaultDate = (day, month, year) => {
-    const date = DateTime.fromObject({ year, month, day });
-    setDefaultDate(date);
-  };
-
-  useEffect(() => {
-    handleDefaultDate(day, month, year);
-  }, [day, month, year]);
 
   const value = {
     defaultDate,
