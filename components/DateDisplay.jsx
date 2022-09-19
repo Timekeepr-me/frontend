@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { DateContext } from "../context/DateContext";
 import { DateTime } from "luxon";
 import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
@@ -72,7 +72,7 @@ const DateDisplay = () => {
           <AiOutlineLeft style={{ height: "20px" }} />
         </button>
         <button
-          className="bg-white mx-2 px-1 border-4 border-black mb-2 active:translate-y-1"
+          className="bg-white mx-1 px-1 border-4 border-black mb-2 active:translate-y-1"
           onClick={handleToday}
         >
           Today

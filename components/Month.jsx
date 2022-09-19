@@ -71,61 +71,17 @@ const Month = () => {
     });
   };
 
-  // const datesArray = () => {
-  //   const dates = [];
-  //   let i = context.firstOfMonth;
-  //   while (i > 1) {
-  //     dates.push("");
-  //     i--;
-  //   }
-  //   for (let i = 1; i <= context.daysInMonth; i++) {
-  //     dates.push(i);
-  //   }
-  //   i = context.lastOfMonth;
-  //   while (i < 7) {
-  //     dates.push("");
-  //     i++;
-  //   }
-  //   return dates;
-  // };
-
-  // const dateBlocks = () => {
-  //   let dates = datesArray();
-  //   return dates.map((day) => {
-  //     if (typeof day === "number") {
-  //       return (
-  //         <div
-  //           key={uuidv4()}
-  //           className={`flex items-start justify-end border-2 border-black rounded-lg px-2 bg-secondary`}
-  //         >
-  //           {day}
-  //         </div>
-  //       );
-  //     } else {
-  //       return (
-  //         <div
-  //           key={DateTime.local(context.year, context.monthNum, day)}
-  //           className={`flex items-start justify-end border-2 border-black rounded-lg px-2 bg-[#2f2f2f]`}
-  //         >
-  //           {day}
-  //         </div>
-  //       );
-  //     }
-  //   });
-  // };
-
   return (
-    <>
+    <React.Fragment>
       <DateDisplay />
-      <div className="grid grid-cols-7 border-black border-t-2 rounded-t-xl bg-black text-white text-xl">
+      <div className="grid grid-cols-7 border-black border-t-2 rounded-t-xl bg-black text-white text-xl mt-4">
         {renderWeekdays()}
       </div>
-      <div className="grid grid-cols-7 h-[85%] border-black border-[6px] border-t-0 rounded-b-xl bg-black text-white text-xl">
-        {/* {dateBlocks()} */}
+      <div className="grid grid-cols-7 h-[80%] border-black border-[6px] border-t-0 rounded-b-xl bg-black text-white text-xl">
         {renderBlocks()}
       </div>
       <div className="flex flex-row justify-end mt-2"></div>
-    </>
+    </React.Fragment>
   );
 };
 

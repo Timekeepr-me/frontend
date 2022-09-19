@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import DateDisplay from "./DateDisplay";
-import { v4 as uuidv4 } from "uuid";
 import { DateContext } from "../context/DateContext";
 
 const Week = () => {

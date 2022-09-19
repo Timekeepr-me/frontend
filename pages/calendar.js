@@ -9,7 +9,6 @@ import { DateContext } from "../context/DateContext";
 const Calendar = () => {
   const context = useContext(DateContext);
 
-  const dateContext = useContext(DateContext);
   const renderRange = () => {
     switch (context.range) {
       case "day":
@@ -26,26 +25,34 @@ const Calendar = () => {
     }
   };
 
+  const handleDayBtn = () => {
+    context.setRange("day");
+  };
+
+  const handleWeekBtn = () => {
+    context.setRange("week");
+  };
+
+  const handleMonthBtn = () => {
+    context.setRange("month");
+  };
+
   return (
     <div>
       <Navbar />
       <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary mb-8">
         <div className="col-span-1 flex flex-col justify-center items-center">
           <div>
-            <Button text="Day" click={() => context.setRange("day")} />
+            <Button text="Day" click={handleDayBtn} />
           </div>
           <div className="my-10">
-            <Button
-              text="Week"
-              click={() => context.setRange("week")}
-              className=""
-            />
+            <Button text="Week" click={handleWeekBtn} className="" />
           </div>
-          <div className="w-fit">
-            <Button text="Month" click={() => context.setRange("month")} />
+          <div>
+            <Button text="Month" click={handleMonthBtn} />
           </div>
         </div>
-        <div className="col-start-2 col-span-7">{renderRange()}</div>
+        <div className="col-span-7">{renderRange()}</div>
       </div>
     </div>
   );
