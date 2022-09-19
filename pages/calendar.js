@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import Navbar from "../components/Navbar";
 import Day from "../components/Day";
 import Week from "../components/Week";
 import Month from "../components/Month";
@@ -28,7 +27,6 @@ const Calendar = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary mb-8">
         <div className="col-span-1 flex flex-col justify-center items-center ">
           <div className="">

@@ -4,6 +4,7 @@ const DateContext = createContext();
 
 const DateProvider = ({ children }) => {
   const [day, setDay] = useState(new Date().getDay());
+  const [date, setDate] = useState(new Date());
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
 
@@ -18,6 +19,8 @@ const DateProvider = ({ children }) => {
     setMonth,
     year,
     setYear,
+    date,
+    setDate
   };
   return <DateContext.Provider value={value}>{children}</DateContext.Provider>;
 };

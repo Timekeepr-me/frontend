@@ -25,7 +25,7 @@ export default function Navbar() {
       <div className="flex">
         <ul className="flex items-center">
           <li className="mx-6">
-            <a href="/">Dashboard</a>
+            <a href="/dashboard">Dashboard</a>
           </li>
           <li className="mx-6">
             <Link href="/calendar">Calendar</Link>
