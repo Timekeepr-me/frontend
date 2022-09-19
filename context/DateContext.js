@@ -6,7 +6,6 @@ const date = DateTime.local();
 
 const DateProvider = ({ children }) => {
   const [defaultDate, setDefaultDate] = useState(date);
-  const [dateFormat, setDateFormat] = useState();
   const [day, setDay] = useState(defaultDate.day);
   const [month, setMonth] = useState(defaultDate.month);
   const [monthName, setMonthName] = useState(defaultDate.monthLong);
@@ -26,11 +25,12 @@ const DateProvider = ({ children }) => {
     setDay,
     monthName,
     month,
+    monthNum,
     setMonth,
+    daysInMonth,
     year,
     setYear,
     weekdayToday,
-    daysInMonth,
     firstOfMonth,
     lastOfMonth,
     range,

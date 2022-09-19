@@ -41,7 +41,7 @@ const Calendar = () => {
               className=""
             />
           </div>
-          <div className=" ">
+          <div className="w-fit">
             <Button text="Month" click={() => context.setRange("month")} />
           </div>
         </div>
