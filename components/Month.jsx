@@ -60,43 +60,6 @@ const Month = () => {
     });
   };
 
-  const monthDropdown = () => {
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    return months.map((month) => {
-      return (
-        <option key={uuidv4()} value="01">
-          {month}
-        </option>
-      );
-    });
-  };
-
-  const handleSetMonth = (e) => {
-    setMonth(e.target.value);
-  };
-
-  const handleSelectYear = (e) => {
-    setYear(e.target.value);
-  };
-
-  const handleSetDate = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-  };
-
   return (
     <>
       <DateDisplay />
@@ -106,28 +69,7 @@ const Month = () => {
       <div className="grid grid-cols-7 h-[85%] border-black border-[6px] border-t-0 rounded-b-xl bg-black text-white text-xl">
         {dateBlocks()}
       </div>
-      <div className="flex flex-row justify-end mt-2">
-        <form onSubmit={handleSetDate} className="flex">
-          <label>
-            <select
-              value={context.month}
-              onChange={handleSetMonth}
-              className="mr-3"
-            >
-              {monthDropdown()}
-            </select>
-          </label>
-          <label>
-            <input
-              type="number"
-              id="year"
-              value={context.year}
-              onChange={handleSelectYear}
-            />
-          </label>
-          <input type="submit" value="select" className="bg-black" />
-        </form>
-      </div>
+      <div className="flex flex-row justify-end mt-2"></div>
     </>
   );
 };

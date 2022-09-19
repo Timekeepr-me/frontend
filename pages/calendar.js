@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import { DateContext } from "../context/DateContext";
 
 const Calendar = () => {
+  const context = useContext(DateContext);
   const [range, setRange] = useState("month");
 
   const dateContext = useContext(DateContext);
