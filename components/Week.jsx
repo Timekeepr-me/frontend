@@ -1,25 +1,64 @@
-import React from "react";
+import React, { useContext } from "react";
+import DateDisplay from "./DateDisplay";
+import { DateContext } from "../context/DateContext";
 
 const Week = () => {
-  const renderWeekdays = () => {
-    const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const context = useContext(DateContext);
 
-    return weekdays.map((weekday) => {
+  const weekdays = (day) => {
+    switch (day) {
+      case 1:
+        return "Mon";
+        break;
+      case 2:
+        return "Tue";
+        beak;
+      case 3:
+        return "Wed";
+        break;
+      case 4:
+        return "Thu";
+        break;
+      case 5:
+        return "Fri";
+        break;
+      case 6:
+        return "Sat";
+        break;
+      case 7:
+        return "Sun";
+        break;
+    }
+  };
+
+  const renderWeekdays = () => {
+    let days = context.defaultDate.weekday;
+    const first = context.defaultDate.minus({ days: days - 1 });
+    let weekArray = [];
+    for (let i = 0; i < 7; i++) {
+      weekArray.push(first.plus({ days: `${i}` }));
+    }
+
+    return weekArray.map((day) => {
       return (
         <div
-          key={weekday}
-          className="flex align-center justify-center border-r-4 border-black p-2 pt-1 hover:bg-ternary hover:text-black"
+          className="flex flex-col text-center border-r-2 border-black font-medium"
+          key={day}
         >
-          <h3>{weekday}</h3>
+          <h3 className="mt-1">{weekdays(day.weekday)}</h3>
+          <h3>{day.day}</h3>
         </div>
       );
     });
   };
 
   return (
-    <div className="grid grid-cols-7 border-black border-8 rounded-xl h-full bg-secondary text-white mr-4 mt-4 text-xl">
-      {renderWeekdays()}
-    </div>
+    <>
+      <DateDisplay />
+      <div className="grid grid-cols-7 border-black border-8 rounded-xl h-[85%] bg-secondary text-white mr-4 mt-4 text-xl">
+        {renderWeekdays()}
+      </div>
+    </>
   );
 };
 
