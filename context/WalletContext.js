@@ -15,13 +15,13 @@ const WalletProvider = ({ children }) => {
 
 
 
-  const connectWallet = async() => connectWalletHandle(setAccount, setChainId);
+  const connectWallet = async() => connectWalletHandle(setAccount, setChainId, setProvider);
   const disconnectWallet = async() => disconnectWalletHandle(setAccount, setChainId);
 
   const value = { connectWallet, disconnectWallet, account, error };
 
 
-  
+
   return (
     <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
   );
