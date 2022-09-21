@@ -1,7 +1,5 @@
 const Footer = () => {
-  return (
-    <footer className="bg-secondary text-ternary p-5 h-[12vh]">Footer</footer>
-  );
+  return <footer className="bg-secondary text-white p-5">Footer</footer>;
 };
 
 export default Footer;

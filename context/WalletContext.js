@@ -1,18 +1,12 @@
 import React, { createContext, useState } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-import { providerOptions } from "../config";
+import { WEB3_MODAL_OPTIONS } from "../config";
 
 const WalletContext = createContext();
 
 const web3Modal =
-  typeof window !== "undefined"
-    ? new Web3Modal({
-        network: "mainnet",
-        cacheProvider: true,
-        providerOptions,
-      })
-    : null;
+  typeof window !== "undefined" ? new Web3Modal(WEB3_MODAL_OPTIONS) : null;
 
 const WalletProvider = ({ children }) => {
   const [provider, setProvider] = useState();
@@ -21,15 +15,19 @@ const WalletProvider = ({ children }) => {
   const [error, setError] = useState("");
 
   const connectWallet = async () => {
-    console.log("clicked connectWallet");
+    if (!web3Modal) return;
     try {
       const provider = await web3Modal.connect();
-      const library = new ethers.providers.Web3Provider(provider);
-      const accounts = await library.listAccounts();
-      const network = await library.getNetwork();
-      if (accounts) setAccount(accounts[0]);
+      const ethersProvider = new ethers.providers.Web3Provider(provider);
+      console.log(ethersProvider);
+      const signerAddress = ethersProvider
+        .getSigner()
+        .getAddress()
+        .toLowerCase();
+      // const accounts = await ethersProvider.listAccounts();
+      const network = await ethersProvider.getNetwork();
+      if (signerAddress) setAccount(accounts[0]);
       setChainId(network.chainId);
-      // console.log(account, chainId);
     } catch (error) {
       setError(error);
       console.log(error);
@@ -37,9 +35,10 @@ const WalletProvider = ({ children }) => {
   };
 
   const disconnectWallet = async () => {
-    await web3Modal.clearCachedProvider();
+    web3Modal.clearCachedProvider();
     setAccount();
     setChainId();
+    setProvider();
   };
 
   const value = { connectWallet, disconnectWallet, account, error };

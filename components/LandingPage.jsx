@@ -6,8 +6,6 @@ import { WalletContext } from "../context/WalletContext";
 export default function LandingPage() {
   const context = useContext(WalletContext);
 
-  console.log(context.account);
-
   return (
     <div className="flex flex-col items-start justify-evenly h-[84vh] w-full p-20 border-black border-2 text-white">
       {context.account ? (

@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
-import Navbar from "../components/Navbar";
 import LandingPage from "../components/LandingPage";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -12,8 +12,8 @@ export default function Home() {
         <link rel="icon" href="/Logo.png" />
       </Head>
       <div className="bg-gradient-to-b from-primary to-ternary">
-        <Navbar />
         <LandingPage />
+        <Footer />
       </div>
     </React.Fragment>
   );
