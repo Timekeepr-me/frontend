@@ -17,11 +17,15 @@ export default function LandingPage() {
       {context.account ? (
         <Link href="/calendar">
           <a>
-            <Button text="Enter App" />
+            <Button text="Enter App" className="text-5xl" />
           </a>
         </Link>
       ) : (
-        <Button text="Connect" click={context.connectWallet} />
+        <Button
+          text="Connect"
+          style={{ fontSize: "50px" }}
+          click={context.connectWallet}
+        />
       )}
     </div>
   );
