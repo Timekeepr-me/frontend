@@ -1,8 +1,12 @@
 import React, { useContext } from "react";
+import DateDisplay from "./DateDisplay";
 import { DateContext } from "../context/DateContext";
+import { v4 as uuidv4 } from "uuid";
 
 const Day = () => {
-  const dateContext = useContext(DateContext);
+  const context = useContext(DateContext);
+
+  console.log(context.defaultDate.toLocal());
 
   const renderTimes = () => {
     const hours = [];
@@ -12,13 +16,19 @@ const Day = () => {
     return hours.map((hour) => {
       if (hour < 10) {
         return (
-          <div key={hour} className="border-r-2 border-b-2 border-black pt-1">
+          <div
+            key={(context.defaultDate.toLocal(), uuidv4())}
+            className="border-r-4 border-b-4 border-black pt-1"
+          >
             {hour < 10 ? `0${hour}:00` : `${hour}:00`}
           </div>
         );
       } else {
         return (
-          <div key={hour} className="border-r-2 border-b-2 border-black pt-1">
+          <div
+            key={(context.defaultDate.toLocal(), uuidv4())}
+            className="border-r-4 border-b-2 border-black pt-1"
+          >
             {hour}:00
           </div>
         );
@@ -27,9 +37,12 @@ const Day = () => {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-12 border-black border-8 rounded-xl h-full bg-secondary text-white text-xl text-center mt-4">
-      {renderTimes()}
-    </div>
+    <>
+      <DateDisplay />
+      <div className="grid grid-cols-2 md:grid-cols-12 border-black border-8 rounded-xl h-[85%] bg-secondary text-white text-xl text-center mt-4">
+        {renderTimes()}
+      </div>
+    </>
   );
 };
 
