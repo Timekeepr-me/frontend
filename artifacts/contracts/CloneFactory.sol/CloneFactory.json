@@ -1,0 +1,10 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "CloneFactory",
+  "sourceName": "contracts/CloneFactory.sol",
+  "abi": [],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220e86c8c718486654a01b13eaee37338910c27edb53cd0f1a01512e7e045f732ee64736f6c63430008090033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220e86c8c718486654a01b13eaee37338910c27edb53cd0f1a01512e7e045f732ee64736f6c63430008090033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
