@@ -20,6 +20,7 @@ const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
     const accounts = await library.listAccounts();
     const network = await library.getNetwork();
     if (accounts) setAccount(accounts[0]);
+    console.log(provider, library, signer, accounts, network);
 
     setChainId(network.chainId);
     setSigner(signer);

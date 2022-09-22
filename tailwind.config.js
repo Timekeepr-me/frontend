@@ -17,6 +17,10 @@ module.exports = {
       boxShadow: {
         yellow: "0 2px 2px 1px #ffeb85",
       },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+        guild: ["Mirza"],
+      },
     },
   },
   plugins: [],

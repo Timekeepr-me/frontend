@@ -7,6 +7,14 @@ export default function Home() {
   return (
     <React.Fragment>
       <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Mirza&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+          rel="stylesheet"
+        />
         <title>Timekeepr</title>
         <meta name="Timekeepr" content="Decentralized calendar app" />
         <link rel="icon" href="/Logo.png" />
