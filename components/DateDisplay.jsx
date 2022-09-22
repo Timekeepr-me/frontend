@@ -61,24 +61,24 @@ const DateDisplay = () => {
 
   return (
     <div className="flex flex-row justify-between mt-2 ">
-      <h1 className="flex text-white text-3xl font-bold mx-2">
+      <h1 className="flex text-white text-3xl font-bold ml-2">
         {renderDate()}
       </h1>
-      <div className="flex">
+      <div className="flex mr-4">
         <button
-          className="bg-white rounded-l-xl px-1 border-4 border-black mb-2 active:translate-y-1 py-auto"
+          className="bg-white rounded-l-xl px-1 border-2 border-black mb-2 active:translate-y-1 py-auto"
           onClick={handleBackNav}
         >
           <AiOutlineLeft style={{ height: "20px" }} />
         </button>
         <button
-          className="bg-white mx-1 px-1 border-4 border-black mb-2 active:translate-y-1"
+          className="bg-white mx-1 px-1 border-2 border-black mb-2 active:translate-y-1"
           onClick={handleToday}
         >
           Today
         </button>
         <button
-          className="bg-white rounded-r-xl px-1 border-4 border-black mb-2 active:translate-y-1"
+          className="bg-white rounded-r-xl px-1 border-2 border-black mb-2 active:translate-y-1"
           onClick={handleForwardNav}
         >
           <AiOutlineRight style={{ height: "20px" }} />

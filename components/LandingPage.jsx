@@ -6,8 +6,6 @@ import { WalletContext } from "../context/WalletContext";
 export default function LandingPage() {
   const context = useContext(WalletContext);
 
-  console.log(context.account);
-
   return (
     <div className="flex flex-col items-start justify-evenly h-[84vh] w-full p-20 border-black border-2 text-white">
       {context.account ? (
@@ -19,11 +17,15 @@ export default function LandingPage() {
       {context.account ? (
         <Link href="/calendar">
           <a>
-            <Button text="Enter App" />
+            <Button text="Enter App" className="text-5xl" />
           </a>
         </Link>
       ) : (
-        <Button text="Connect" click={context.connectWallet} />
+        <Button
+          text="Connect"
+          style={{ fontSize: "50px" }}
+          click={context.connectWallet}
+        />
       )}
     </div>
   );
