@@ -13,6 +13,8 @@ const WalletProvider = ({ children }) => {
   const [chainId, setChainId] = useState();
   const [error, setError] = useState("");
 
+  
+
 
 
   const connectWallet = async() => connectWalletHandle(setAccount, setChainId, setProvider);
