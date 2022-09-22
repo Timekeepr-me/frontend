@@ -23,15 +23,15 @@ const AvailabilityWeek = ({ setAvailability }) => {
     console.log('clicked: ', event.type, hour, quarter);
   }
 
-  const renderHours = (dayIndex) => {
+  const renderHours = () => {
     const HOURS = 24;
     const hoursRendered = [];
     for (let hour = 0; hour < HOURS; hour++) {
       hoursRendered.push(
         <div className="flex flex-col h-5 border-t-2  border-black px-1" key={`hour-${hour}`}>
-          {[0, 15, 30, 45].map((minute) => {
+          {[0, 15, 30, 45].map((minute, i) => {
             return (
-              <AvailabilityDay />
+              <AvailabilityDay key={`${hour}-${i}`} hour={hour} i={i} />
             )
           })}
         </div>
@@ -42,7 +42,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
   const renderWeekdays = () => {
     const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-    return weekdays.map((weekday, dayIndex) => {
+    return weekdays.map((weekday) => {
       return (
         <div
           key={weekday}
@@ -50,7 +50,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
         >
           <h3>{weekday}</h3>
           <div className="flex flex-col">
-            {renderHours(dayIndex)}
+            {renderHours()}
           </div>
         </div>
       );
@@ -60,7 +60,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
   const renderHoursLegend = () => {
     const hoursLegend = [];
     for (let i = 0; i < 24; i++) {
-      hoursLegend.push(<div className="h-5 text-sm text-white border-t-2 border-black w-20 pr-2">{renderHourTitle(i)}</div>);
+      hoursLegend.push(<div key={`hour-key-${i}`} className="h-5 text-sm text-white border-t-2 border-black w-20 pr-2">{renderHourTitle(i)}</div>);
     }
     return hoursLegend;
   }

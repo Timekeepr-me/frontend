@@ -2,6 +2,7 @@ import React, { createContext, useState } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { providerOptions } from "../config";
+import UserCalendar from '../artifacts/contracts/UserCalendar.sol/UserCalendar.json';
 
 const WalletContext = createContext();
 
@@ -19,6 +20,7 @@ const WalletProvider = ({ children }) => {
   const [account, setAccount] = useState();
   const [chainId, setChainId] = useState();
   const [error, setError] = useState("");
+  const [userCalendar, setUserCalendar] = useState();
 
   const connectWallet = async () => {
     console.log("clicked connectWallet");
@@ -28,8 +30,15 @@ const WalletProvider = ({ children }) => {
       const accounts = await library.listAccounts();
       const network = await library.getNetwork();
       if (accounts) setAccount(accounts[0]);
+      console.log('setting chainId ', network.chainId);
       setChainId(network.chainId);
-      // console.log(account, chainId);
+      
+      setUserCalendar(new ethers.Contract(
+        process.env.NEXT_PUBLIC_USER_CALENDAR,
+        UserCalendar.abi,
+        library.getSigner()
+      ));
+
     } catch (error) {
       setError(error);
       console.log(error);
@@ -42,7 +51,13 @@ const WalletProvider = ({ children }) => {
     setChainId();
   };
 
-  const value = { connectWallet, disconnectWallet, account, error };
+  const value = {
+    connectWallet,
+    disconnectWallet,
+    account,
+    error,
+    userCalendar
+  };
 
   return (
     <WalletContext.Provider value={value}>{children}</WalletContext.Provider>
