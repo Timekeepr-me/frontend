@@ -2,8 +2,6 @@ import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { providerOptions } from "../../config";
 
-
-
 const web3Modal =
   typeof window !== "undefined"
     ? new Web3Modal({
@@ -15,10 +13,8 @@ const web3Modal =
       })
     : null;
 
-
-
-
 const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
+
     console.log("clicked connectWallet");
     try {
         const provider = await web3Modal.connect();
@@ -46,31 +42,30 @@ const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
     }
 };
 
-
-
-
 const disconnectWalletHandle = async (setAccount, setChainId) => {
-    await web3Modal.clearCachedProvider();
-    setAccount();
-    setChainId();
+  await web3Modal.clearCachedProvider();
+  setAccount();
+  setChainId();
 };
 
+const signAndExecuteHandle = async (
+  provider,
+  contractAddress,
+  contractAbi,
+  contractMethod,
+  contractCalldata
+) => {
+  const signer = provider.getSigner();
+  const contractObject = new ethers.Contract(
+    contractAddress,
+    contractAbi,
+    signer
+  );
+  const transactionReceipt = await contractObject[contractMethod](
+    contractCalldata
+  );
 
-
-
-
-const signAndExecuteHandle = async(provider, contractAddress, contractAbi, contractMethod, contractCalldata) => {
-    const signer = provider.getSigner();
-    const contractObject = new ethers.Contract(contractAddress, contractAbi, signer);
-    const transactionReceipt = await contractObject[contractMethod](contractCalldata);
-    
-    const result = await transactionReceipt.wait();
-}
-
-
-
-
-
-
+  const result = await transactionReceipt.wait();
+};
 
 export { connectWalletHandle, disconnectWalletHandle, signAndExecuteHandle };

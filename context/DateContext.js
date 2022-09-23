@@ -1,23 +1,25 @@
 import React, { createContext, useState } from "react";
+import { DateTime } from "luxon";
 
 const DateContext = createContext();
+const date = DateTime.local();
 
 const DateProvider = ({ children }) => {
-  const [day, setDay] = useState(new Date().getDay());
-  const [month, setMonth] = useState(new Date().getMonth());
-  const [year, setYear] = useState(new Date().getFullYear());
-
-  const today = new Date();
-
-  console.log(today);
+  const [defaultDate, setDefaultDate] = useState(date);
+  const [month, setMonth] = useState(defaultDate.month);
+  const [year, setYear] = useState(defaultDate.year);
+  const [range, setRange] = useState("month");
+  const daysInMonth = defaultDate.daysInMonth;
+  const monthNum = defaultDate.month;
 
   const value = {
-    day,
-    setDay,
+    defaultDate,
+    setDefaultDate,
     month,
-    setMonth,
-    year,
-    setYear,
+    monthNum,
+    daysInMonth,
+    range,
+    setRange,
   };
   return <DateContext.Provider value={value}>{children}</DateContext.Provider>;
 };
