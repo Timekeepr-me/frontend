@@ -24,8 +24,8 @@ const Dashboard = () => {
   // };
 
   return (
-    <div className="h-screen">
-      <div className="flex flex-col align-center justify-center m-10">
+    <div className="h-screen bg-gradient-to-b from-primary to-ternary">
+      <div className="flex flex-col align-center justify-center m-10 ">
         <h1 className="m-4 text-4xl">Dashboard</h1>
         <div className="flex flex-row align-center justify-center">
           <div className="min-h-36 w-36 bg-white shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center">

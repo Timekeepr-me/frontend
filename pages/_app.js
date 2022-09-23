@@ -3,6 +3,7 @@ import { WalletProvider } from "../context/WalletContext";
 import { DateProvider } from "../context/DateContext";
 import { XmtpClient } from "../context/XmtpContext";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -11,6 +12,7 @@ function MyApp({ Component, pageProps }) {
         <Navbar />
         <XmtpClient></XmtpClient>
         <Component {...pageProps} />
+        <Footer />
       </DateProvider>
     </WalletProvider>
   );
