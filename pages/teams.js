@@ -3,7 +3,7 @@ import React from "react";
 
 function Teams() {
     return (
-        <div className="h-screen bg-gradient-to-b from-primary to-ternary">
+        <div className="h-[75vh] bg-gradient-to-b from-primary to-ternary">
 
         </div>
     )

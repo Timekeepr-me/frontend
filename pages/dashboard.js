@@ -24,31 +24,31 @@ const Dashboard = () => {
   // };
 
   return (
-    <div className="h-screen bg-gradient-to-b from-primary to-ternary">
-      <div className="flex flex-col align-center justify-center m-10 ">
-        <h1 className="m-4 text-4xl">Dashboard</h1>
+    <div className="h-[75vh] bg-gradient-to-b from-primary to-ternary">
+      <div className="flex flex-col align-center justify-center m-10">
+        <h1 className="m-4 text-4xl text-white">Dashboard</h1>
         <div className="flex flex-row align-center justify-center">
-          <div className="min-h-36 w-36 bg-white shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center">
-            <h3 className="text-2xl text-extrabold text-center text-black">
+          <div className="min-h-36 w-36 bg-[#3a3a3a] shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center text-white">
+            <h3 className="text-2xl text-extrabold text-center">
               Account Balance
             </h3>
-            <div className="color-black text-center text-lg">
+            <div className="text-center text-lg">
               {dashboardData.balance} xDai
             </div>
           </div>
-          <div className="min-h-36 w-36 bg-white shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center">
-            <h3 className="text-2xl text-extrabold text-center text-black">
+          <div className="min-h-36 w-36 bg-[#3a3a3a] shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center text-white">
+            <h3 className="text-2xl text-extrabold text-center">
               Next Meeting
             </h3>
-            <div className="color-black text-center text-lg">
+            <div className="text-center text-lg">
               {dashboardData.nextMeetingDate}
             </div>
           </div>
-          <div className="min-h-36 w-36 bg-white shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center">
-            <h3 className="text-2xl text-extrabold text-center text-black">
+          <div className="min-h-36 w-36 bg-[#3a3a3a] shadow-black shadow-2xl rounded-md m-2 p-3 border-2 border-black flex-col align-center justify-center text-white">
+            <h3 className="text-2xl text-extrabold text-center">
               Upcoming Meetings
             </h3>
-            <div className="color-black text-center text-lg">
+            <div className="text-center text-lg">
               {dashboardData.upcomingMeetings}
             </div>
           </div>
