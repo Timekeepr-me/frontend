@@ -6,7 +6,7 @@ import Month from "../components/Month";
 import Button from "../components/Button";
 import Footer from "../components/Footer";
 import { DateContext } from "../context/DateContext";
-import Modal from "../components/Modal";
+// import Modal from "../components/Modal";
 
 const Calendar = () => {
   const context = useContext(DateContext);
@@ -52,7 +52,7 @@ const Calendar = () => {
           <div>
             <Button text="Month" click={handleMonthBtn} />
           </div>
-          <Modal />
+          {/* <Modal /> */}
         </div>
         <div className="col-span-7">{renderRange()}</div>
       </div>
