@@ -42,9 +42,9 @@ export default function LandingPage() {
         )}
       </div>
       {/* Right side div */}
-      <div className="flex flex-col items-center justify-start md:w-2/3 px-2 mt-10 text-black">
+      <div className="flex flex-col items-center justify-start md:w-2/3 px-2 mt-10 text-white">
         {/* box 1 */}
-        <div className="flex flex-row bg-white px-6 py-4 rounded-xl border-black border-2 w-4/5 mb-10">
+        <div className="flex flex-row bg-[#3a3a3a] px-6 py-4 rounded-xl border-black border-2 w-4/5 mb-10">
           <div className="flex flex-col justify-center w-1/3 ">
             <h3 className="text-center">Key Features:</h3>
             <ul className="mt-4">
@@ -79,7 +79,7 @@ export default function LandingPage() {
           </div>
         </div>
         {/* box 2 */}
-        <div className="flex flex-row bg-white px-6 py-4 rounded-xl border-black border-2 w-4/5 mb-10">
+        <div className="flex flex-row bg-[#3a3a3a] px-6 py-4 rounded-xl border-black border-2 w-4/5 mb-10">
           <div className="flex flex-col justify-center ml-2 ">
             <h3 className="text-center">
               Why use Timekeepr instead of competitors?
@@ -120,7 +120,7 @@ export default function LandingPage() {
           </div>
         </div>
         {/* box 3 */}
-        <div className="flex flex-col bg-white px-6 py-4 rounded-xl border-black border-2 mb-14 w-4/5">
+        <div className="flex flex-col bg-[#3a3a3a] px-6 py-4 rounded-xl border-black border-2 mb-14 w-4/5">
           <h3 className="text-center m-auto">How to use Timekeepr</h3>
           <ol className="list-decimal list-inside mt-4">
             <li>
