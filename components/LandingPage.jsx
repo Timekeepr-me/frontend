@@ -49,23 +49,23 @@ export default function LandingPage() {
             <h3 className="text-center">Key Features:</h3>
             <ul className="mt-4">
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 w-4 bg-ternary" /> Set
+                <BsCalendarCheck className="mr-2 mt-1 w-4 bg-secondary" /> Set
                 availability
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" /> Schedule
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" /> Schedule
                 appointments
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" /> Set hourly
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" /> Set hourly
                 rate
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" /> Create your
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" /> Create your
                 own calendar
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" />
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" />
                 Group meetings
               </li>
             </ul>
@@ -86,7 +86,7 @@ export default function LandingPage() {
             </h3>
             <ul className="list-none mt-4 text-left">
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" />
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" />
                 Timekeepr is free to use. Only pay network transaction fees.
                 (You can check current Polygon gas fees on
                 <a
@@ -105,13 +105,13 @@ export default function LandingPage() {
                 ).
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" />
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" />
                 Set your rates and charge your clients. This is made simple
                 thanks to SuperFluid integration. Timekeepr doesn't take a cut
                 of your fees
               </li>
               <li className="flex items-start align-center">
-                <BsCalendarCheck className="mr-2 mt-1 bg-ternary" />
+                <BsCalendarCheck className="mr-2 mt-1 bg-secondary" />
                 Decentralization - Your schedule and appointments are important.
                 Timekeepr will never store your data and sell it to 3rd party
                 advertisers

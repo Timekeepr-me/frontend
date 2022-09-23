@@ -1,11 +1,6 @@
 import React, { useState, useContext } from "react";
-import Calendar from "./calendar";
-import Day from "../components/Day";
-import Week from "../components/Week";
-import Month from "../components/Month";
-import Button from "../components/Button";
 import { DateContext } from "../context/DateContext";
-import { data } from "autoprefixer";
+
 
 const Dashboard = () => {
   // const [range, setRange] = useState("week");
@@ -29,7 +24,7 @@ const Dashboard = () => {
   // };
 
   return (
-    <div>
+    <div className="h-screen">
       <div className="flex flex-col align-center justify-center m-10">
         <h1 className="m-4 text-4xl">Dashboard</h1>
         <div className="flex flex-row align-center justify-center">
@@ -59,8 +54,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <h2 className="m-4 text-2xl">Availability</h2>
-      <Calendar />
+
       {/* <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary mb-8">
         <div className="col-start-2 col-span-7">{renderRange()}</div>
       </div> */}

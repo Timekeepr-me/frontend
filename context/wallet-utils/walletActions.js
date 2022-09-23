@@ -13,7 +13,7 @@ const web3Modal =
       })
     : null;
 
-const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
+const connectWalletHandle = async (setAccount, setProvider, setWalletIsConnected) => {
 
     console.log("clicked connectWallet");
     try {
@@ -33,19 +33,22 @@ const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
 
 
 
-        setChainId(network.chainId);
-        setProvider(library);
 
-        // console.log(account, chainId);
+        setProvider(library);
+        setWalletIsConnected(true);
+        
+
+
+
     } catch (error) {
         console.log(error);
     }
 };
 
-const disconnectWalletHandle = async (setAccount, setChainId) => {
+const disconnectWalletHandle = async (setAccount, setWalletIsConnected) => {
   await web3Modal.clearCachedProvider();
   setAccount();
-  setChainId();
+  setWalletIsConnected(false);
 };
 
 const signAndExecuteHandle = async (
