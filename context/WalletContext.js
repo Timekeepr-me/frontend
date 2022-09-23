@@ -12,10 +12,11 @@ const WalletProvider = ({ children }) => {
   const [chainId, setChainId] = useState();
   const [error, setError] = useState("");
 
-  const connectWallet = async () =>
-    connectWalletHandle(setAccount, setChainId, setProvider);
-  const disconnectWallet = async () =>
-    disconnectWalletHandle(setAccount, setChainId);
+
+
+  const connectWallet = async() => connectWalletHandle(setAccount, setChainId, setProvider);
+  const disconnectWallet = async() => disconnectWalletHandle(setAccount, setChainId);
+
 
   const value = { connectWallet, disconnectWallet, account, error };
 
