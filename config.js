@@ -28,3 +28,5 @@ export const WEB3_MODAL_OPTIONS = {
   network: "mainnet",
   cacheProvider: true,
 };
+
+export const contractAddress = "0x00";

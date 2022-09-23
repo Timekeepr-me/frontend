@@ -29,6 +29,6 @@
     @apply rounded-lg bg-black text-ternary text-center w-fit ml-1 py-2;
   }
   input {
-    @apply px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full;
+    @apply px-2 py-1 placeholder-black text-black relative bg-ternary shadow-yellow rounded-md text-sm border border-[#2a2a2a] shadow outline-none focus:outline-none focus:ring w-full;
   }
 }

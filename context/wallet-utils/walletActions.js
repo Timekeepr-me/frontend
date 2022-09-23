@@ -11,7 +11,7 @@ const web3Modal =
       })
     : null;
 
-const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
+const connectWalletHandle = async (setAccount, setChainId, setSigner, setProvider) => {
   console.log("clicked connectWallet");
   try {
     const provider = await web3Modal.connect();
@@ -23,7 +23,6 @@ const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
     setChainId(network.chainId);
     setSigner(signer);
     setProvider(library);
-
     // console.log(account, chainId);
   } catch (error) {
     console.log(error);
