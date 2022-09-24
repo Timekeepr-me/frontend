@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Calendar from "./calendar";
 import Day from "../components/Day";
 import AvailabilityWeek from "../components/AvailabilityWeek";
@@ -10,10 +10,13 @@ import { data } from "autoprefixer";
 
 const Dashboard = () => {
   const [range, setRange] = useState("week");
+  // array of []
   const [availability, setAvailability] = useState(new Array(7).fill(new Array(0)));
   const [fromTime, setFromTime] = useState([]);
   const [toTime, setToTime] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [availabilityEncoded, setAvailabilityEncoded] = useState("");
+
 
   // todo: get data from smart contract
   const dashboardData = {
@@ -24,6 +27,19 @@ const Dashboard = () => {
 
   const dateContext = useContext(DateContext);
   const { userCalendar } = useContext(WalletContext);
+
+  useEffect(() => {
+    fetchAvailability();
+  }, [userCalendar]);
+
+  const fetchAvailability = async () => {
+    if (!userCalendar) {
+      console.error('connect wallet');
+      return;
+    }
+    const encodedString = await userCalendar.availabilityEncodedStr();
+    setAvailabilityEncoded(encodedString);
+  }
 
   console.log('userCalendar ', userCalendar);
   const handleFromTime = (day, event) => {
@@ -36,18 +52,23 @@ const Dashboard = () => {
     newToTime[day] = event.target.value;
     setToTime(newToTime);
   }
-  const setNewAvailability = async (day) => {
-    console.log('setting ', day, fromTime[day], toTime[day]);
-    try {
-      const response = await userCalendar.setAvailability(day, fromTime[day], toTime[day]);
-      console.log('setAvailability response - ', response);
-      const currAvailability = [...availability];
-      currAvailability[day] = [...currAvailability[day], [fromTime[day], toTime[day]]];
-      setAvailability(currAvailability);
+  const setNewAvailability = (day) => {
+    console.log('setting ', day, fromTime[day], toTime[day], fromTime, toTime);
 
-    } catch(e) {
-      console.error('error on setAvailability: ', e);
-    }
+    const currAvailability = [...availability];
+    currAvailability[day] = [...currAvailability[day], [fromTime[day], toTime[day]]];
+    setAvailability(currAvailability);
+    handleToTime(day, {target: { value: "" }});
+    handleFromTime(day, {target: { value: "" }});
+
+    // clear from and to time
+    // const newFromTime = [...fromTime];
+    // newFromTime[day] = undefined;
+    // setFromTime(newFromTime);
+
+    // const newToTime = [...toTime];
+    // newToTime[day] = undefined;
+    // setToTime(newToTime);
   }
   const deleteAvailability = (day, timeIndex) => {
     const currAvailability = [...availability];
@@ -56,6 +77,36 @@ const Dashboard = () => {
     console.log('post delete ', currAvailability);
     setAvailability(currAvailability);
   }
+  const finalizeAvailability = async () => {
+    // 013001600109000930012001400115001800009001500011001600015001800
+
+    // with sunday
+    // 009001000013001800015001800009001200010001500017001900
+    let availabilityString = '';
+    availability.forEach((day, i) => {
+      day.forEach((block, j) => {
+        console.log('block j', block, j);
+        let startTime = block[0] + '';
+        let endTime = block[1] + '';
+        if (startTime.length === 3) {
+          startTime = '0' + startTime;
+        }
+        if (endTime.length === 3) {
+          endTime = '0' + endTime;
+        }
+        availabilityString += j + startTime + endTime;
+      });
+    })
+    try {
+      console.log("availabilityString ", availabilityString);
+      const response = await userCalendar.setAvailability(availabilityString);
+      console.log('setAvailability response - ', response);
+
+    } catch(e) {
+      console.error('error on setAvailability: ', e);
+    }
+  }
+  console.log('availability ', availability);
   return (
     <div className="h-[75vh] bg-gradient-to-b from-primary to-ternary">
       <div className="flex flex-col align-center justify-center m-10">
@@ -174,7 +225,10 @@ const Dashboard = () => {
                   <button
                     className="bg-emerald-300 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setShowModal(false);
+                      finalizeAvailability();
+                    }}
                   >
                     Finalize
                   </button>

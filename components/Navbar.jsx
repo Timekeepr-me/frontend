@@ -32,15 +32,9 @@ export default function Navbar() {
   return (
     <nav className="flex flex-row items-center bg-[#535353] py-2 pl-1 pr-4 w-full h-1/12 font-base text-white text-center justify-between items-center text-lg">
       <div className="ml-2">
-        <div className="flex flex-row items-center">
-          <Link href="/dashboard">
-            <img
-              src="/Logo.png"
-              className="h-12 w-auto hover:cursor-pointer mr-2"
-            />
-          </Link>
-          <h1 className="hidden md:block">Timekeepr</h1>
-        </div>
+        <Link href="/">
+          <img src="/Logo.png" className="h-12 w-auto hover:cursor-pointer" />
+        </Link>
       </div>
       <div className="flex">
         {renderNavItems}
