@@ -15,6 +15,7 @@ export default function Modal({ title, body, isError }) {
   return (
     <>
       <Button text="book" click={() => setShowModal(true)} />
+      {/* <button click={() => setShowModal(true)}>Book</button> */}
 
       {showModal ? (
         <>
