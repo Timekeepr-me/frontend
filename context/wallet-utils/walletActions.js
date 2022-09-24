@@ -1,6 +1,7 @@
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { providerOptions } from "../../config";
+import UserCalendar from '../artifacts/contracts/UserCalendar.sol/UserCalendar.json';
 
 const web3Modal =
   typeof window !== "undefined"
@@ -32,7 +33,12 @@ const connectWalletHandle = async (
     setSigner(signer);
     setProvider(library);
     setWalletIsConnected(true);
-    // console.log(account, chainId);
+
+    setUserCalendar(new ethers.Contract(
+      process.env.NEXT_PUBLIC_USER_CALENDAR,
+      UserCalendar.abi,
+      library.getSigner()
+    ));
   } catch (error) {
     console.log(error);
   }

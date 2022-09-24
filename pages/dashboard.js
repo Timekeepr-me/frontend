@@ -1,9 +1,20 @@
 import React, { useState, useContext } from "react";
+import Calendar from "./calendar";
+import Day from "../components/Day";
+import AvailabilityWeek from "../components/AvailabilityWeek";
+import Month from "../components/Month";
+import Button from "../components/Button";
 import { DateContext } from "../context/DateContext";
-
+import { WalletContext } from "../context/WalletContext";
+import { data } from "autoprefixer";
 
 const Dashboard = () => {
-  // const [range, setRange] = useState("week");
+  const [range, setRange] = useState("week");
+  const [availability, setAvailability] = useState(new Array(7).fill(new Array(0)));
+  const [fromTime, setFromTime] = useState([]);
+  const [toTime, setToTime] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
   // todo: get data from smart contract
   const dashboardData = {
     balance: "45",
@@ -12,17 +23,39 @@ const Dashboard = () => {
   };
 
   const dateContext = useContext(DateContext);
-  // const renderRange = () => {
-  //   switch (range) {
-  //     case "week":
-  //       // todo: display each week day as interactable range by 15 min intervals
-  //       return <Week />;
-  //       break;
-  //     default:
-  //       return <Week />;
-  //   }
-  // };
+  const { userCalendar } = useContext(WalletContext);
 
+  console.log('userCalendar ', userCalendar);
+  const handleFromTime = (day, event) => {
+    const newFromTime = [...fromTime];
+    newFromTime[day] = event.target.value;
+    setFromTime(newFromTime);
+  }
+  const handleToTime = (day, event) => {
+    const newToTime = [...toTime];
+    newToTime[day] = event.target.value;
+    setToTime(newToTime);
+  }
+  const setNewAvailability = async (day) => {
+    console.log('setting ', day, fromTime[day], toTime[day]);
+    try {
+      const response = await userCalendar.setAvailability(day, fromTime[day], toTime[day]);
+      console.log('setAvailability response - ', response);
+      const currAvailability = [...availability];
+      currAvailability[day] = [...currAvailability[day], [fromTime[day], toTime[day]]];
+      setAvailability(currAvailability);
+
+    } catch(e) {
+      console.error('error on setAvailability: ', e);
+    }
+  }
+  const deleteAvailability = (day, timeIndex) => {
+    const currAvailability = [...availability];
+    console.log('deleting ', day, timeIndex, currAvailability);
+    currAvailability[day] = [...currAvailability[day].slice(0, timeIndex), ...currAvailability[day].slice(timeIndex + 1)];
+    console.log('post delete ', currAvailability);
+    setAvailability(currAvailability);
+  }
   return (
     <div className="h-[75vh] bg-gradient-to-b from-primary to-ternary">
       <div className="flex flex-col align-center justify-center m-10">
@@ -54,10 +87,104 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-
-      {/* <div className="grid grid-cols-8 h-[84vh] p-3 bg-gradient-to-b from-primary to-ternary mb-8">
-        <div className="col-start-2 col-span-7">{renderRange()}</div>
-      </div> */}
+      <div className="p-10 bg-gray-200 pt-6">
+        <h2 className="m-4 text-4xl ">Availability</h2>
+        <button className="p-3 border-2 rounded-md bg-white text-black" onClick={() => setShowModal(true)}>Edit Availability</button>
+        <div className="grid grid-cols-8 h-full p-3 bg-gray-200 mb-8">
+          <div className="col-start-2 col-span-7">
+            <AvailabilityWeek setAvailability={setAvailability} />
+          </div>
+        </div>
+      </div>
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-8 w-full">
+              {/*content*/}
+              <div className=" border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                {/*header*/}
+                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                  <h3 className="text-3xl font-semibold">
+                    Edit Availability
+                  </h3>
+                  <button
+                    className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                    onClick={() => setShowModal(false)}
+                  >
+                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                      ×
+                    </span>
+                  </button>
+                </div>
+                {/*body*/}
+                <div className="relative p-6 flex flex-row">
+                  {
+                    ['Mon', 'Tue', 'Wed', 'Thr', 'Fri', 'Sat', 'Sun' ].map((dayName, dayIndex) => {
+                      return (
+                        <div key={`${dayName}-${dayIndex}`} className="flex flex-col">
+                          <h3 className="text-black text-xl mb-2">{dayName}</h3>
+                          {
+                            availability[dayIndex].map((ava, i) => {
+                              return (
+                                <div className="flex flex-row items-center justify-center" key={`${i}`}>
+                                  <h3 className="px-2 py-1 text-slate-600" >
+                                    {ava[0]}
+                                  </h3>
+                                  <h3 className="px-2 py-1 text-slate-600" >
+                                    {ava[1]}
+                                  </h3>
+                                  <button className="p-2 text-sm text-rose-600" onClick={() => deleteAvailability(dayIndex, i)}>X</button>
+                                </div>
+                              )
+                            })
+                          }
+                          <div className="">
+                            <input 
+                              type="text"
+                              className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-20" 
+                              placeholder="from"
+                              onChange={(event) => handleFromTime(dayIndex, event)}
+                              value={fromTime[dayIndex]}
+                            />
+                            <input
+                              type="text"
+                              className="px-2 py-1 placeholder-slate-300 text-slate-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-20"
+                              placeholder="to"
+                              onChange={(event) => handleToTime(dayIndex, event)}
+                              value={toTime[dayIndex]}
+                            />
+                            <button className="p-2 m-2 text-emerald-300" onClick={() => setNewAvailability(dayIndex)}>+</button>
+                          </div>
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                  <button
+                    className="bg-emerald-300 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Finalize
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
     </div>
   );
 };
