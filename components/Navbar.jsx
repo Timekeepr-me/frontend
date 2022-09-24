@@ -6,7 +6,7 @@ import { WalletContext } from "../context/WalletContext";
 export default function Navbar() {
   const context = useContext(WalletContext);
 
-  const renderBtn = !context.account ? (
+  const renderBtn = !context.walletIsConnected ? (
     <Button click={context.connectWallet} text="Connect" />
   ) : (
     <Button
@@ -18,7 +18,7 @@ export default function Navbar() {
   const renderNavItems = context.account ? (
     <ul className="flex items-center">
       <li className="mx-6">
-        <a href="/dashboard">Dashboard</a>
+        <Link href="/dashboard">Dashboard</Link>
       </li>
       <li className="mx-6">
         <Link href="/calendar">Calendar</Link>

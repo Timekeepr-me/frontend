@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import Navbar from "../components/Navbar";
+
 import Day from "../components/Day";
 import Week from "../components/Week";
 import Month from "../components/Month";
