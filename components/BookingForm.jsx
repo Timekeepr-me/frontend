@@ -147,24 +147,29 @@ const BookingForm = () => {
             type="checkbox"
             checked={isGroupAppt}
             onChange={() => setIsGroupAppt(!isGroupAppt)}
+            className="form-check-input  h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           />
         </div>
-        <input
-          type="text"
-          placeholder="MATIC address..."
-          value={attendee}
-          onChange={(e) => setAttendee(e.target.value)}
-          required={true}
-        />
+        <div
+          className={`flex items-center mb-3 pt-0 ${
+            !isGroupAppt ? "hidden" : null
+          }`}
+        >
+          <label className="mr-2">Group address:</label>
+          <input
+            type="text"
+            placeholder="group address..."
+            value={userEOAs}
+            onChange={(e) => setUserEOAs(e.target.value)}
+            required={true}
+          />
+        </div>
         <div className="flex items-center mb-3 pt-0">
-          <label className="mr-2">
-            Group meeting? (check if true):
-            <input
-              type="submit"
-              value="Book Appointment"
-              className="flex items-center justify-center py-1 px-4 mx-auto my-auto text-2xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow text-lg active:translate-y-[2px]"
-            />
-          </label>
+          <input
+            type="submit"
+            value="Book Appointment"
+            className="flex items-center justify-center py-1 px-4 mx-auto my-auto text-2xl rounded-lg text-ternary bg-buttonPrimary shadow-yellow text-lg active:translate-y-[2px]"
+          />
         </div>
       </form>
     </div>
