@@ -3,13 +3,10 @@ import Link from "next/link";
 import Button from "./Button";
 import { WalletContext } from "../context/WalletContext";
 import CalendarsList from './CalendarsList';
+import CreateCalendar from './CreateCalendar';
 
 export default function LandingPage() {
   const { account, connectWallet } = useContext(WalletContext);
-
-  const createCalendar = async () => {
-    
-  }
 
   return (
     <div className="flex flex-col items-start justify-evenly h-[84vh] w-full p-20 border-black border-2 text-white">
@@ -26,7 +23,7 @@ export default function LandingPage() {
                 <Button text="Enter App" className="text-5xl" />
               </a>
             </Link>
-            <button onClick={createCalendar} className="">create your calendar</button>
+            <CreateCalendar />
             <CalendarsList />
           </div>
       ) : (
