@@ -1,20 +1,33 @@
 import { WalletContext } from "../context/WalletContext";
 import { useState, useEffect, useContext } from 'react';
 import Button from './Button';
+import Link from "next/link";
 
 export default function CreateCalendar() {
   const [userName, setUserName] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const { calendarFactory } = useContext(WalletContext);
+  const { calendarFactory, userCalAddress } = useContext(WalletContext);
     const createCalendar = async () => {
       const response = await calendarFactory.createUserCal(userName);
       console.log('successfully created user calendar', response);
+      setUserName("");
     }
+    console.log('userCalAddress ', userCalAddress);
     return (
       <div
         className="flex mt-5"
       >
-        <Button text="create your calendar" className="text-5xl mb-4" click={() => setShowModal(true)} />
+        {
+          userCalAddress ? 
+            (<Link href="/dashboard">
+                <a>
+                  <Button text="Go to your calendar dashboard" className="text-5xl" />
+                </a>
+              </Link>
+              )
+            :
+              <Button text="create your calendar" className="text-5xl mb-4" click={() => setShowModal(true)} />
+        }
 
         {showModal ? (
           <>
@@ -54,7 +67,7 @@ export default function CreateCalendar() {
                       type="button"
                       onClick={() => setShowModal(false)}
                     >
-                      cance
+                      cancel
                     </button>
                     <button
                       className="bg-emerald-300 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

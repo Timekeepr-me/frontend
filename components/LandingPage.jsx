@@ -18,11 +18,6 @@ export default function LandingPage() {
 
       {account ? (
           <div className="flex flex-col">
-            <Link href="/calendar">
-              <a>
-                <Button text="Enter App" className="text-5xl" />
-              </a>
-            </Link>
             <CreateCalendar />
             <CalendarsList />
           </div>

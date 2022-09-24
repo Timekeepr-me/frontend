@@ -21,7 +21,8 @@ const connectWalletHandle = async (
     setSigner,
     setUserCalendar,
     setCommunityTracker,
-    setCalendarFactory
+    setCalendarFactory,
+    setUserCalAddress
   ) => {
   console.log("clicked connectWallet");
   try {
@@ -37,23 +38,33 @@ const connectWalletHandle = async (
     setSigner(signer);
     setProvider(library);
 
-    setUserCalendar(new ethers.Contract(
-      process.env.NEXT_PUBLIC_USER_CALENDAR,
-      UserCalendar.abi,
-      signer
-    ));
-
-    setCommunityTracker(new ethers.Contract(
+    const communityTracker = new ethers.Contract(
       process.env.NEXT_PUBLIC_COMMUNITY_TRACKER,
       CommunityTracker.abi,
       signer
-    ));
+    );
+    setCommunityTracker(communityTracker);
 
-    setCalendarFactory(new ethers.Contract(
+    const calFactory = new ethers.Contract(
       process.env.NEXT_PUBLIC_CALENDAR_FACTORY,
       CalendarFactory.abi,
       signer
-    ));
+    );
+
+    setCalendarFactory(calFactory);
+
+    console.log('accounts[0] ', accounts[0]);
+    const userCalAddr = await calFactory.getUserCalendarClone(accounts[0]);
+    console.log('user cal addr ', userCalAddr);
+    if (userCalAddr) {
+      setUserCalendar(new ethers.Contract(
+        userCalAddr,
+        UserCalendar.abi,
+        signer
+      ));
+      setUserCalAddress(userCalAddr);
+    }
+
 
     // console.log(account, chainId);
   } catch (error) {

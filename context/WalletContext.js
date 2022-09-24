@@ -15,9 +15,10 @@ const WalletProvider = ({ children }) => {
   const [userCalendar, setUserCalendar] = useState();
   const [communityTracker, setCommunityTracker] = useState();
   const [calendarFactory, setCalendarFactory] = useState();
+  const [userCalAddress, setUserCalAddress] = useState();
 
   const connectWallet = async () =>
-    connectWalletHandle(setAccount, setChainId, setProvider, setSigner, setUserCalendar, setCommunityTracker, setCalendarFactory);
+    connectWalletHandle(setAccount, setChainId, setProvider, setSigner, setUserCalendar, setCommunityTracker, setCalendarFactory, setUserCalAddress);
   const disconnectWallet = async () =>
     disconnectWalletHandle(setAccount, setChainId);
 
@@ -29,7 +30,8 @@ const WalletProvider = ({ children }) => {
     signer,
     userCalendar,
     communityTracker,
-    calendarFactory
+    calendarFactory,
+    userCalAddress
   };
 
   return (

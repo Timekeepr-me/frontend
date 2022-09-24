@@ -17,7 +17,6 @@ const Dashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [availabilityEncoded, setAvailabilityEncoded] = useState("");
 
-
   // todo: get data from smart contract
   const dashboardData = {
     balance: "45",
@@ -37,6 +36,7 @@ const Dashboard = () => {
       console.error('connect wallet');
       return;
     }
+    console.log('userCalendar -> ', userCalendar);
     const encodedString = await userCalendar.availabilityEncodedStr();
     setAvailabilityEncoded(encodedString);
   }
