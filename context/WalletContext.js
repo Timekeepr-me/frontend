@@ -12,6 +12,7 @@ const WalletContext = createContext();
     - Navbar
     - LandingPage
     - Footer
+
 */
 
 const WalletProvider = ({ children }) => {
@@ -33,9 +34,10 @@ const WalletProvider = ({ children }) => {
       setSigner,
       setProvider,
       setWalletIsConnected,
-      setUserCalendar
+      setUserCalendar,
+      setCommunityTracker,
+      setCalendarFactory
     );
-    connectWalletHandle(setAccount, setChainId, setProvider, setSigner, setUserCalendar, setCommunityTracker, setCalendarFactory);
 
   const disconnectWallet = async () =>
     disconnectWalletHandle(setAccount, setWalletIsConnected);
@@ -53,7 +55,7 @@ const WalletProvider = ({ children }) => {
     signer,
     userCalendar,
     communityTracker,
-    calendarFactory
+    calendarFactory,
   };
 
   return (
