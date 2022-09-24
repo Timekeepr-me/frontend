@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal";
 
 const Day = () => {
-  const [availability, setAvailability] = [1, 2, 3, 3];
+  const [availability, setAvailability] = [];
   const context = useContext(DateContext);
 
   console.log(context.defaultDate.toLocal());

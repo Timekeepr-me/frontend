@@ -11,7 +11,7 @@ export default function Navbar() {
   ) : (
     <Button
       click={context.disconnectWallet}
-      text={`${context.account.substr(0, 4)}...${context.account.substr(-3)}`}
+      text={`${context.account?.substr(0, 4)}...${context.account?.substr(-3)}`}
     />
   );
 

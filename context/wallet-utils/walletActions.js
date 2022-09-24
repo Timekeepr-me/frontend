@@ -6,15 +6,20 @@ const web3Modal =
   typeof window !== "undefined"
     ? new Web3Modal({
         network: "mainnet",
-        theme: 'dark',
-        accentColor: 'orange',
+        theme: "dark",
+        accentColor: "orange",
         cacheProvider: true,
         providerOptions,
       })
     : null;
 
-
-const connectWalletHandle = async (setAccount, setChainId, setSigner, setProvider) => {
+const connectWalletHandle = async (
+  setAccount,
+  setChainId,
+  setSigner,
+  setProvider,
+  setWalletIsConnected
+) => {
   console.log("clicked connectWallet");
   try {
     const provider = await web3Modal.connect();
@@ -26,17 +31,17 @@ const connectWalletHandle = async (setAccount, setChainId, setSigner, setProvide
     setChainId(network.chainId);
     setSigner(signer);
     setProvider(library);
+    setWalletIsConnected(true);
     // console.log(account, chainId);
   } catch (error) {
     console.log(error);
   }
-
 };
 
 const disconnectWalletHandle = async (setAccount, setWalletIsConnected) => {
   await web3Modal.clearCachedProvider();
   setAccount();
-  setWalletIsConnected(false);
+  setWalletIsConnected(() => false);
 };
 
 const signAndExecuteHandle = async (

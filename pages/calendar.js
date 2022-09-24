@@ -57,7 +57,6 @@ const Calendar = () => {
           </div>
           <div className="col-span-7">{renderRange()}</div>
         </div>
-        <Footer />
       </div>
     </>
   );
