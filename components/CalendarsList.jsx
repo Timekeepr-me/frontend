@@ -1,9 +1,9 @@
 export default function CalendarsList({ text, click }) {
     return (
       <div
-        className="flex"
+        className="flex m-4"
       >
-        List of calendars
+        todo: List of calendars
       </div>
     );
   }

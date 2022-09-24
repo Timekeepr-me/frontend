@@ -1,6 +1,6 @@
-import Button from "./Button";
 import { WalletContext } from "../context/WalletContext";
 import { useState, useEffect, useContext } from 'react';
+import Button from './Button';
 
 export default function CreateCalendar() {
   const [userName, setUserName] = useState("");
@@ -12,9 +12,9 @@ export default function CreateCalendar() {
     }
     return (
       <div
-        className="flex"
+        className="flex mt-5"
       >
-        <button onClick={() => setShowModal(true)} className="">create your calendar</button>
+        <Button text="create your calendar" className="text-5xl mb-4" click={() => setShowModal(true)} />
 
         {showModal ? (
           <>
