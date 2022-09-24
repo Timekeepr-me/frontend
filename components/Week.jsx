@@ -42,11 +42,11 @@ const Week = () => {
     return weekArray.map((day) => {
       return (
         <div
-          className="flex flex-col text-center border-r-2 border-black font-medium"
+          className="flex flex-col text-center border-r-2 border-black text-xl pt-1 hover:bg-ternary hover:text-black"
           key={day}
         >
-          <h3 className="mt-1">{weekdays(day.weekday)}</h3>
-          <h3>{day.day}</h3>
+          <p>{weekdays(day.weekday)}</p>
+          <p>{day.day}</p>
         </div>
       );
     });
@@ -55,7 +55,7 @@ const Week = () => {
   return (
     <>
       <DateDisplay />
-      <div className="grid grid-cols-7 border-black border-8 rounded-xl h-[85%] bg-secondary text-white mr-4 mt-4 text-xl">
+      <div className="grid grid-cols-7 border-black border-8 rounded-xl h-[90%] bg-secondary text-white mr-4 mt-4 text-xl">
         {renderWeekdays()}
       </div>
     </>

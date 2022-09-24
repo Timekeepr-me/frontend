@@ -7,7 +7,6 @@ export default function Home() {
     <React.Fragment>
       <div className="bg-gradient-to-b from-primary to-ternary">
         <LandingPage />
-        <Footer />
       </div>
     </React.Fragment>
   );

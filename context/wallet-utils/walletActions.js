@@ -9,12 +9,15 @@ const web3Modal =
   typeof window !== "undefined"
     ? new Web3Modal({
         network: "mainnet",
+        theme: "dark",
+        accentColor: "orange",
         cacheProvider: true,
         providerOptions,
       })
     : null;
 
 const connectWalletHandle = async (
+) => {
     setAccount,
     setChainId,
     setProvider,
@@ -31,11 +34,13 @@ const connectWalletHandle = async (
     const accounts = await library.listAccounts();
     const network = await library.getNetwork();
     if (accounts) setAccount(accounts[0]);
+
     console.log(provider, library, signer, accounts, network);
 
-    setChainId(network.chainId);
-    setSigner(signer);
-    setProvider(library);
+    setChainId(() => network.chainId);
+    setSigner(() => signer);
+    setProvider(() => library);
+    setWalletIsConnected(() => true);
 
     setUserCalendar(new ethers.Contract(
       process.env.NEXT_PUBLIC_USER_CALENDAR,
@@ -55,16 +60,23 @@ const connectWalletHandle = async (
       signer
     ));
 
-    // console.log(account, chainId);
+    setUserCalendar(
+      new ethers.Contract(
+        process.env.NEXT_PUBLIC_USER_CALENDAR,
+        UserCalendar.abi,
+        library.getSigner()
+      )
+    );
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
-const disconnectWalletHandle = async (setAccount, setChainId) => {
+const disconnectWalletHandle = async (setAccount, setWalletIsConnected) => {
   await web3Modal.clearCachedProvider();
   setAccount();
-  setChainId();
+  setWalletIsConnected(() => false);
 };
 
 const signAndExecuteHandle = async (
