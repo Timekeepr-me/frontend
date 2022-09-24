@@ -20,20 +20,27 @@ const WalletContext = createContext();
 const WalletProvider = ({ children }) => {
   const [walletIsConnected, setWalletIsConnected] = useState(false);
   const [provider, setProvider] = useState();
+  const [signer, setSigner] = useState();
   const [account, setAccount] = useState();
 
   //use this to control error modal for wallet related actions (invalid chain)
   const [error, setError] = useState("");
 
-  console.log(walletIsConnected, account);
 
+  const connectWallet = async () =>
+    connectWalletHandle(setAccount, setChainId, setSigner, setProvider);
+  const disconnectWallet = async () =>
+    disconnectWalletHandle(setAccount, setChainId);
 
-
-  const connectWallet = async() => connectWalletHandle(setAccount, setProvider, setWalletIsConnected);
-  const disconnectWallet = async() => disconnectWalletHandle(setAccount, setWalletIsConnected);
-
-
-  const value = { connectWallet, disconnectWallet, account, error, provider, walletIsConnected };
+  const value = {
+    provider,
+    signer,
+    account,
+    chainId,
+    error,
+    connectWallet,
+    disconnectWallet,
+  };
 
   return (
     <WalletContext.Provider value={value}>{children}</WalletContext.Provider>

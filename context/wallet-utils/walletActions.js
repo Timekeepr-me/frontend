@@ -13,36 +13,24 @@ const web3Modal =
       })
     : null;
 
-const connectWalletHandle = async (setAccount, setProvider, setWalletIsConnected) => {
 
-    console.log("clicked connectWallet");
-    try {
-        const provider = await web3Modal.connect();
-        const library = new ethers.providers.Web3Provider(provider);
-        const signer = library.getSigner();
-        const accounts = await library.listAccounts();
-        const network = await library.getNetwork();
+const connectWalletHandle = async (setAccount, setChainId, setSigner, setProvider) => {
+  console.log("clicked connectWallet");
+  try {
+    const provider = await web3Modal.connect();
+    const library = new ethers.providers.Web3Provider(provider);
+    const signer = library.getSigner();
+    const accounts = await library.listAccounts();
+    const network = await library.getNetwork();
+    if (accounts) setAccount(accounts[0]);
+    setChainId(network.chainId);
+    setSigner(signer);
+    setProvider(library);
+    // console.log(account, chainId);
+  } catch (error) {
+    console.log(error);
+  }
 
-        
-        if(network.chainId !== 80001) {
-            throw new Error("UNSUPPORTED NETWORK");
-        }
-        
-        if (accounts) setAccount(accounts[0]);
-
-
-
-
-
-        setProvider(library);
-        setWalletIsConnected(true);
-        
-
-
-
-    } catch (error) {
-        console.log(error);
-    }
 };
 
 const disconnectWalletHandle = async (setAccount, setWalletIsConnected) => {
