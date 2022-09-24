@@ -6,6 +6,8 @@ const web3Modal =
   typeof window !== "undefined"
     ? new Web3Modal({
         network: "mainnet",
+        theme: 'dark',
+        accentColor: 'orange',
         cacheProvider: true,
         providerOptions,
       })
