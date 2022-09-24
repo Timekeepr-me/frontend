@@ -103,7 +103,7 @@ const BookingForm = () => {
             type="number"
             max={7}
             min={1}
-            placeholder="1: Mon. 7: Sun..."
+            placeholder="1: Mon, 2: Tues, 3:"
             value={day}
             onChange={(e) => setDay(e.target.value)}
             required={true}
@@ -142,12 +142,12 @@ const BookingForm = () => {
           />
         </div>
         <div className="flex items-center mb-3 pt-0">
-          <label className="mr-2">Group meeting? (check if true):</label>
+          <label className="mr-2">Group meeting?</label>
           <input
             type="checkbox"
             checked={isGroupAppt}
-            onChange={() => setIsGroupAppt(!isGroupAppt)}
-            className="form-check-input  h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+            onChange={() => setIsGroupAppt(() => !isGroupAppt)}
+            className="form-check-input h-4 w-4 border border-[#2a2a2a] rounded-lg bg-ternary checked:bg-ternary checked:border-[#2a2a2a] checked:text-black focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
           />
         </div>
         <div

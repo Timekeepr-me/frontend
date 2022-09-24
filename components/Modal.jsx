@@ -14,7 +14,12 @@ export default function Modal({ title, body, isError }) {
 
   return (
     <>
-      <Button text="book" click={() => setShowModal(true)} />
+      <button
+        className="flex bg-[#2a2a2a] px-2.5 py-0 text-xs m-auto rounded-full border border-black text-ternary my-1"
+        onClick={() => setShowModal(true)}
+      >
+        Schedule
+      </button>
       {/* <button click={() => setShowModal(true)}>Book</button> */}
 
       {showModal ? (

@@ -25,6 +25,7 @@ const WalletProvider = ({ children }) => {
   const [chainId, setChainId] = useState();
   //use this to control error modal for wallet related actions (invalid chain)
   const [error, setError] = useState("");
+  console.log(walletIsConnected);
 
   const connectWallet = async () =>
     connectWalletHandle(

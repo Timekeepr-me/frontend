@@ -5,68 +5,42 @@ import { v4 as uuidv4 } from "uuid";
 import Modal from "./Modal";
 
 const Day = () => {
-  const [availability, setAvailability] = [];
+  // const [availability, setAvailability] = [];
   const context = useContext(DateContext);
 
   console.log(context.defaultDate.toLocal());
 
   const renderTimes = () => {
     // call function that gets data from solidity
-    const hours = [
-      // [hour, availability],
-      // [hour, availability],
-      // [hour, availability],
-      // [hour, availability],
-      // [hour, availability],
-      // [hour, availability],
-    ];
+    // Build array with hours 1 - 24
+    const hours = [];
     for (let i = 0; i <= 23; i++) {
       hours.push(i);
     }
-
+    // Loop over array and build divs with 15 min time intervals
     return hours.map((hour) => {
       // hour.availability is a boolean
+      const textColorLogic = !hour && hour !== 0 ? "black" : "white";
+      const bgColorLogic = !hour && hour !== 0 ? "ternary" : null;
+      const timeIntervals = ["00", "15", "30", "45"];
+      const intervals = timeIntervals.map((interval) => {
+        const borderB = interval === "45" ? "none" : 2;
+        return (
+          <div
+            className={`bg-${bgColorLogic} text-${textColorLogic} border-b-${borderB} border-black hover:bg-ternary hover:text-black`}
+          >
+            {hour < 10 ? `0${hour}:${interval}` : `${hour}:${interval}`}
+            <Modal />
+          </div>
+        );
+      });
+      // render divs with 15 min intervals into grid
       return (
         <div
           className="border-r-4 border-b-4 border-black pt-1"
           key={(context.defaultDate.toLocal(), uuidv4())}
         >
-          <div className="grid grid-flow-row">
-            <div
-              className={`border-b-2 border-black bg-${
-                hour ? "ternary" : null
-              } text-${!hour ? "black" : "white"} text-${
-                !hour ? "black" : "white"
-              } hover:bg-ternary hover:text-black`}
-            >
-              {hour < 10 ? `0${hour}:00` : `${hour}:00`}
-            </div>
-            <div
-              className={`border-b-2 border-black bg-${
-                !hour ? "ternary" : null
-              } text-${
-                !hour ? "black" : "white"
-              } hover:bg-ternary hover:text-black`}
-            >
-              {hour < 10 ? `0${hour}:15` : `${hour}:15`}
-            </div>
-            <div
-              className={`border-b-2 border-black bg-${
-                !hour ? "ternary" : null
-              } text-${
-                !hour ? "black" : "white"
-              } hover:bg-ternary hover:text-black`}
-            >
-              {hour < 10 ? `0${hour}:30` : `${hour}:30`}
-            </div>
-            <div
-              className={`bg-${!hour ? "ternary" : null} text-${
-                !hour ? "black" : "white"
-              } hover:bg-ternary hover:text-black`}
-            >
-              {hour < 10 ? `0${hour}:45` : `${hour}:45`}
-            </div>
-          </div>
+          <div className="grid grid-flow-row">{intervals}</div>
         </div>
       );
     });
@@ -80,7 +54,7 @@ const Day = () => {
   return (
     <>
       <DateDisplay />
-      <div className="grid grid-cols-12 md:grid-rows-2 border-black border-8 rounded-xl h-[85%] bg-secondary text-white text-xl text-center mt-4">
+      <div className="grid grid-cols-12 md:grid-rows-2 border-black border-8 rounded-xl h-[90%] bg-secondary text-white text-xl text-center mt-4">
         {renderTimes()}
       </div>
     </>

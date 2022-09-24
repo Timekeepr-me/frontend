@@ -55,7 +55,7 @@ const Month = () => {
         return (
           <div
             key={block.toLocal()}
-            className="flex items-start justify-end border-2 border-black rounded-lg px-2 bg-secondary"
+            className="flex items-start justify-end border-2 border-black rounded-lg px-2 bg-secondary hover:bg-ternary hover:text-black"
           >
             {block.day}{" "}
           </div>
@@ -72,16 +72,16 @@ const Month = () => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <DateDisplay />
       <div className="grid grid-cols-7 border-black border-t-2 rounded-t-xl bg-black text-white text-xl mt-4">
         {renderWeekdays()}
       </div>
-      <div className="grid grid-cols-7 h-[80%] border-black border-[6px] border-t-0 rounded-b-xl bg-black text-white text-xl">
+      <div className="grid grid-cols-7 h-[85%] border-black border-[6px] border-t-0 rounded-b-xl bg-black text-white text-xl">
         {renderBlocks()}
       </div>
       <div className="flex flex-row justify-end mt-2"></div>
-    </React.Fragment>
+    </>
   );
 };
 
