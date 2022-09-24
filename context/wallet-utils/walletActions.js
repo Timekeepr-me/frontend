@@ -19,9 +19,10 @@ const connectWalletHandle = async (
   setChainId,
   setSigner,
   setProvider,
-  setWalletIsConnected
+  setWalletIsConnected,
+  setUserCalendar
 ) => {
-  console.log("clicked connectWallet");
+  // console.log("clicked connectWallet");
   try {
     const provider = await web3Modal.connect();
     const library = new ethers.providers.Web3Provider(provider);
@@ -29,10 +30,10 @@ const connectWalletHandle = async (
     const accounts = await library.listAccounts();
     const network = await library.getNetwork();
     if (accounts) setAccount(accounts[0]);
-    setChainId(network.chainId);
-    setSigner(signer);
-    setProvider(library);
-    setWalletIsConnected(true);
+    setChainId(() => network.chainId);
+    setSigner(() => signer);
+    setProvider(() => library);
+    setWalletIsConnected(() => true);
 
     setUserCalendar(
       new ethers.Contract(
@@ -43,6 +44,7 @@ const connectWalletHandle = async (
     );
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 

@@ -13,8 +13,6 @@ const WalletContext = createContext();
     - LandingPage
     - Footer
 
-
-
 */
 
 const WalletProvider = ({ children }) => {
@@ -25,7 +23,7 @@ const WalletProvider = ({ children }) => {
   const [chainId, setChainId] = useState();
   //use this to control error modal for wallet related actions (invalid chain)
   const [error, setError] = useState("");
-  console.log(walletIsConnected);
+  const [userCalendar, setUserCalendar] = useState();
 
   const connectWallet = async () =>
     connectWalletHandle(
@@ -33,8 +31,10 @@ const WalletProvider = ({ children }) => {
       setChainId,
       setSigner,
       setProvider,
-      setWalletIsConnected
+      setWalletIsConnected,
+      setUserCalendar
     );
+
   const disconnectWallet = async () =>
     disconnectWalletHandle(setAccount, setWalletIsConnected);
 

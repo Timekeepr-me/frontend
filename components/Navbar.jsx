@@ -23,9 +23,9 @@ export default function Navbar() {
       <li className="mx-6">
         <Link href="/calendar">Calendar</Link>
       </li>
-      <li className="mx-6">
+      {/* <li className="mx-6">
         <Link href="/teams">Teams</Link>
-      </li>
+      </li> */}
     </ul>
   ) : null;
 

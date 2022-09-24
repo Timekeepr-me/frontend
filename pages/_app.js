@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
           <link rel="icon" href="/Logo.png" />
         </Head>
         <Navbar />
-        <XmtpClient></XmtpClient>
+        <XmtpClient />
         <Component {...pageProps} />
         <Footer />
       </DateProvider>
