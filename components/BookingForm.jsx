@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { WalletContext } from "../context/WalletContext";
 import { ethers } from "ethers";
-import { contractAddress } from "../config";
+import { communityTracker_MUMBAI } from "../config";
 
 const BookingForm = () => {
   const [userEOAs, setUserEOAs] = useState("");
@@ -12,62 +12,53 @@ const BookingForm = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [isGroupAppt, setIsGroupAppt] = useState(false);
+  const [err, setErr] = useState();
+  const [txHash, setTxHash] = useState();
 
   const context = useContext(WalletContext);
 
-  const createAppointment = async (data) => {
+  const handleCreateAppointment = async (e) => {
+    e.preventDefault();
     const provider = context.provider;
-    const address = contractAddress;
+    const address = communityTracker_MUMBAI;
     const ABI_INTERFACE = await new ethers.utils.Interface([
       "function createAppointment(string _title, string _date, uint256 _day, address _attendee, uint256 _startTime, uint256 _endtime)",
       "function createGroupAppointment(address userEOAs, string _title, string _date, uint256 _day, address _attendee, uint256 _startTime, uint256 _endtime)",
     ]);
     const signer = context.signer;
     const contract = new ethers.Contract(
-      contractAddress,
+      address,
       ABI_INTERFACE,
       context.signer
     );
-    if (isGroupAppt) {
-      try {
-        const tx = await contract.createGroupAppointment(data);
-      } catch (err) {
-        return err;
-      }
-    } else {
-      try {
-        const tx = await contract.createAppointment(data);
-      } catch (err) {
-        return err;
-      }
-    }
-  };
 
-  const handleCreateAppointment = (e) => {
-    e.preventDefault();
-    if (isGroupAppt) {
-      const data = {
-        _title: title,
-        _date: date,
-        _day: day,
-        _attendee: attendee,
-        _startTime: startTime,
-        _endTime: endTime,
-      };
-      console.log(data);
-      return createAppointment(data);
-    } else {
-      const data = {
-        _userEOAs: userEOAs,
-        _title: title,
-        _date: date,
-        _day: day,
-        _attendee: attendee,
-        _startTime: startTime,
-        _endTime: endTime,
-      };
-      console.log(data);
-      return createAppointment(data);
+    try {
+      const tx = !isGroupAppt
+        ? await contract.createAppointment(
+            title,
+            date,
+            day,
+            attendee,
+            startTime,
+            endTime
+          )
+        : await contract.createGroupAppointment(
+            userEOAs,
+            title,
+            date,
+            day,
+            attendee,
+            startTime,
+            endTime
+          );
+      await tx.wait();
+      if (tx) {
+        console.log(tx);
+        setTxHash(tx);
+      }
+    } catch (err) {
+      console.log(err);
+      return err;
     }
   };
 
@@ -161,7 +152,6 @@ const BookingForm = () => {
             placeholder="group address..."
             value={userEOAs}
             onChange={(e) => setUserEOAs(e.target.value)}
-            required={true}
           />
         </div>
         <div className="flex items-center mb-3 pt-0">
