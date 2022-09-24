@@ -1,7 +1,9 @@
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { providerOptions } from "../../config";
-import UserCalendar from '../artifacts/contracts/UserCalendar.sol/UserCalendar.json';
+import UserCalendar from '../../artifacts/contracts/UserCalendar.sol/UserCalendar.json';
+import CommunityTracker from '../../artifacts/contracts/CommunityTracker.sol/CommunityTracker.json';
+import CalendarFactory from '../../artifacts/contracts/CalendarFactory.sol/CalendarFactory.json';
 
 const web3Modal =
   typeof window !== "undefined"
@@ -12,7 +14,15 @@ const web3Modal =
       })
     : null;
 
-const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
+const connectWalletHandle = async (
+    setAccount,
+    setChainId,
+    setProvider,
+    setSigner,
+    setUserCalendar,
+    setCommunityTracker,
+    setCalendarFactory
+  ) => {
   console.log("clicked connectWallet");
   try {
     const provider = await web3Modal.connect();
@@ -30,7 +40,19 @@ const connectWalletHandle = async (setAccount, setChainId, setProvider) => {
     setUserCalendar(new ethers.Contract(
       process.env.NEXT_PUBLIC_USER_CALENDAR,
       UserCalendar.abi,
-      library.getSigner()
+      signer
+    ));
+
+    setCommunityTracker(new ethers.Contract(
+      process.env.NEXT_PUBLIC_COMMUNITY_TRACKER,
+      CommunityTracker.abi,
+      signer
+    ));
+
+    setCalendarFactory(new ethers.Contract(
+      process.env.NEXT_PUBLIC_CALENDAR_FACTORY,
+      CalendarFactory.abi,
+      signer
     ));
 
     // console.log(account, chainId);

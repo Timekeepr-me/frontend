@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <nav className="flex flex-row items-center bg-[#535353] m-0 py-2 px-1 w-full h-1/12 font-base text-white text-center justify-between items-center text-2xl">
       <div className="ml-2">
-        <Link href="/dashboard">
+        <Link href="/">
           <img src="/Logo.png" className="h-12 w-auto hover:cursor-pointer" />
         </Link>
       </div>
