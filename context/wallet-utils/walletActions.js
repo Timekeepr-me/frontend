@@ -59,22 +59,15 @@ const connectWalletHandle = async (
     console.log('accounts[0] ', accounts[0]);
     const userCalAddr = await calFactory.getUserCalendarClone(accounts[0]);
     console.log('user cal addr ', userCalAddr);
-    if (userCalAddr != "0x0000000000000000000000000000000000000000") {
+    if (userCalAddr !== "0x0000000000000000000000000000000000000000") {
       setUserCalendar(new ethers.Contract(
         userCalAddr,
         UserCalendar.abi,
         signer
       ));
       setUserCalAddress(userCalAddr);
+      console.log('set user cal address -> ', userCalAddr);
     }
-
-    setUserCalendar(
-      new ethers.Contract(
-        process.env.NEXT_PUBLIC_USER_CALENDAR,
-        UserCalendar.abi,
-        library.getSigner()
-      )
-    );
   } catch (error) {
     console.log(error);
     return error;
