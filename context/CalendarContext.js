@@ -1,38 +1,23 @@
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { WalletContext } from "./WalletContext";
-import { createContext, useContext } from "react";
+import { getCalendar } from "./calendar-utils/readFunctions/calendar";
+import { getAvailability } from "./calendar-utils/readFunctions/availabilities";
+import { getAppointments } from "./calendar-utils/readFunctions/appointments";
+// appointmentData is hardcoded for development purpose
+import { appointmentData } from "../AppointmentData";
 
-import { calendarFactoryAbi, calendarFactoryAddress } from "../contracts";
-import { ethers } from "ethers";
+console.log(appointmentData);
 
-import { getCalendar } from "./calendar-utils/calendar";
-import { getAvailability } from "./calendar-utils/availabilities";
-import { getAppointments } from "./calendar-utils/appointments";
+const CalendarContext = createContext();
 
-
-
-/*
-  - Bring all calendar related data here.
-  - instantiate provider and signer here, pass to helper functions. 
-
-  -Need to know whether a user has deployed a calendar already.
-  -If user has calender, need to get calendar address.
-*/
-
-
-
-
-
-
-const CalendarContext = createContext({children});
-
-function CalendarProvider({ children }) {
-
-
+const CalendarProvider = ({ children }) => {
   const walletContext = useContext(WalletContext);
 
   //state for whether user has a calendar, and their calendar address.
   const [userHasCalendar, setUserHasCalendar] = useState(false);
-  const [calendarAddress, setCalendarAddress] = useState();
+  const [calendarAddress, setCalendarAddress] = useState(
+    "0x0000000000000000000000000000000000000000"
+  );
   const [availability, setAvailabiltiy] = useState();
   const [appointments, setAppointments] = useState();
 
@@ -40,36 +25,37 @@ function CalendarProvider({ children }) {
   const signer = walletContext.signer;
 
   //first, we find out whether the user has a calendar deployed. If they do, we set their calendar address.
-  const updateCalendar = () => getCalendar(setUserHasCalendar, setCalendarAddress, signer, account);
-  updateCalendar();
+  const updateCalendar = () =>
+    getCalendar(setUserHasCalendar, setCalendarAddress, signer, account);
 
   //if the user has a calendar, we load their availabilty and their meetings.
-  const updateAvailability = () => getAvailability(setAvailabiltiy, calendarAddress, signer, account);
-  updateAvailability();
-
+  const updateAvailability = () =>
+    getAvailability(setAvailabiltiy, calendarAddress, signer, account);
 
   //finally, get the appointments.
-  const updateAppointments = () => getAppointments(setAppointments, calendarAddress, signer, account);
-  updateAppointments();
+  const updateAppointments = () =>
+    getAppointments(setAppointments, calendarAddress, signer, account);
 
-
-
-
+  useEffect(() => {
+    updateCalendar();
+    updateAvailability();
+    updateAppointments();
+  }, [walletContext.account]);
 
   const value = {
     userHasCalendar,
-    calendarAddress, 
+    calendarAddress,
     updateCalendar,
     updateAvailability,
     updateAppointments,
-
+    appointmentData,
   };
 
-
-
   return (
-    <CalendarContext.Provider value={value}>{children}</CalendarContext.Provider>
+    <CalendarContext.Provider value={value}>
+      {children}
+    </CalendarContext.Provider>
   );
-}
+};
 
 export { CalendarContext, CalendarProvider };
