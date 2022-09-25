@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import Button from "./Button";
 import { WalletContext } from "../context/WalletContext";
 import { BsCalendarCheck } from "react-icons/bs";
+import CalendarsList from './CalendarsList';
+import CreateCalendar from './CreateCalendar';
 
 export default function LandingPage() {
   const context = useContext(WalletContext);

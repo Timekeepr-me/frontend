@@ -11,7 +11,7 @@ export default function Navbar() {
   ) : (
     <Button
       click={context.disconnectWallet}
-      text={`${context.account.substr(0, 4)}...${context.account.substr(-3)}`}
+      text={`${context.account?.substr(0, 4)}...${context.account?.substr(-3)}`}
     />
   );
 
@@ -23,24 +23,18 @@ export default function Navbar() {
       <li className="mx-6">
         <Link href="/calendar">Calendar</Link>
       </li>
-      <li className="mx-6">
+      {/* <li className="mx-6">
         <Link href="/teams">Teams</Link>
-      </li>
+      </li> */}
     </ul>
   ) : null;
 
   return (
-    <nav className="flex flex-row items-center bg-[#535353] m-0 py-2 px-1 w-full h-1/12 font-base text-white text-center justify-between items-center text-lg">
+    <nav className="flex flex-row items-center bg-[#535353] py-2 pl-1 pr-4 w-full h-1/12 font-base text-white text-center justify-between items-center text-lg">
       <div className="ml-2">
-        <div className="flex flex-row items-center">
-          <Link href="/dashboard">
-            <img
-              src="/Logo.png"
-              className="h-12 w-auto hover:cursor-pointer mr-2"
-            />
-          </Link>
-          <h1 className="hidden md:block">Timekeepr</h1>
-        </div>
+        <Link href="/">
+          <img src="/Logo.png" className="h-12 w-auto hover:cursor-pointer" />
+        </Link>
       </div>
       <div className="flex">
         {renderNavItems}

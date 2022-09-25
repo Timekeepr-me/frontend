@@ -7,6 +7,7 @@ const XmtpContext = createContext();
 function XmtpProvider({ children }) {
   const walletContext = useContext(WalletContext);
 
+
   const value = {
 
   }
@@ -15,6 +16,7 @@ function XmtpProvider({ children }) {
   return (
     <XmtpContext.Provider value={value}>{children}</XmtpContext.Provider>
   );
+
 }
 
 export { XmtpProvider, XmtpContext };
