@@ -6,7 +6,7 @@ import { WalletContext } from "../context/WalletContext";
 export default function Navbar() {
   const context = useContext(WalletContext);
 
-  const renderBtn = !context.walletIsConnected ? (
+  const renderBtn = !context.account ? (
     <Button click={context.connectWallet} text="Connect" />
   ) : (
     <Button

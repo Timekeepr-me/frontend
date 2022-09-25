@@ -4,11 +4,17 @@ import { Client } from "@xmtp/xmtp-js";
 
 const XmtpContext = createContext();
 
-function XmtpClient({ children }) {
+function XmtpProvider({ children }) {
   const walletContext = useContext(WalletContext);
-  const test = walletContext;
-  console.log(`test: ${walletContext.account}`);
-  return <div></div>;
+
+  const value = {
+
+  }
+
+
+  return (
+    <XmtpContext.Provider value={value}>{children}</XmtpContext.Provider>
+  );
 }
 
-export { XmtpClient, XmtpContext };
+export { XmtpProvider, XmtpContext };
