@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { WalletContext } from "./WalletContext";
-import { calendarFactoryAbi, calendarFactoryAddress } from "../contracts";
 import { getCalendar } from "./calendar-utils/readFunctions/calendar";
 import { getAvailability } from "./calendar-utils/readFunctions/availabilities";
 import { getAppointments } from "./calendar-utils/readFunctions/appointments";
@@ -44,10 +43,7 @@ const CalendarProvider = ({ children }) => {
     updateAppointments();
   }, [walletContext.account])
 
-  useEffect(() => {
-    console.log(account);
-    console.log(calendarAddress);
-  }, [userHasCalendar]);
+
 
   const value = {
     userHasCalendar,
@@ -57,10 +53,7 @@ const CalendarProvider = ({ children }) => {
     updateAppointments,
   };
 
-  console.log(
-    calendarAddress,
-    userHasCalendar
-  )
+
 
   return (
     <CalendarContext.Provider value={value}>
