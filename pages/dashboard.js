@@ -78,15 +78,11 @@ const Dashboard = () => {
     availability.forEach((day, i) => {
       day.forEach((block, j) => {
         console.log('block j', block, j);
-        let startTime = block[0] + '';
-        let endTime = block[1] + '';
-        if (startTime.length === 3) {
-          startTime = '0' + startTime;
-        }
-        if (endTime.length === 3) {
-          endTime = '0' + endTime;
-        }
-        availabilityString += j + startTime + endTime;
+        let startTime = to25Minute(block[0]);
+        let endTime = to25Minute(block[1]);
+        let duration = getDuration(startTime, endTime);
+        console.log("duration , start, end ", duration, startTime, endTime);
+        availabilityString += j + startTime + duration;
       });
     })
     try {
@@ -97,6 +93,27 @@ const Dashboard = () => {
     } catch(e) {
       console.error('error on setAvailability: ', e);
     }
+  }
+  const to25Minute = (time) => {
+    time = time+'';
+    if (time.length === 3) {
+      time = '0' + time;
+    }
+    const hour = time.slice(0, 2);
+    const minute = ((parseInt(time.slice(2)) / 15) * 25) + '';
+    if (minute.length === 1) {
+      minute = '0' + minute;
+    }
+    return hour + minute;
+  }
+  const getDuration = (start, end) => {
+    console.log('getDuration start end', start, end);
+
+    const dur = (parseInt(end) - parseInt(start)) / 25;
+    if ((dur+'').length === 1) {
+      dur = '0' + dur;
+    }
+    return dur;
   }
   console.log('availabilityEncoded ', availabilityEncoded);
   return (
