@@ -1,14 +1,16 @@
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
 import { providerOptions } from "../../config";
-import UserCalendar from '../../artifacts/contracts/UserCalendar.sol/UserCalendar.json';
-import CommunityTracker from '../../artifacts/contracts/CommunityTracker.sol/CommunityTracker.json';
-import CalendarFactory from '../../artifacts/contracts/CalendarFactory.sol/CalendarFactory.json';
+import UserCalendar from "../../artifacts/contracts/UserCalendar.sol/UserCalendar.json";
+import CommunityTracker from "../../artifacts/contracts/CommunityTracker.sol/CommunityTracker.json";
+import CalendarFactory from "../../artifacts/contracts/CalendarFactory.sol/CalendarFactory.json";
 
 const web3Modal =
   typeof window !== "undefined"
     ? new Web3Modal({
         network: "mainnet",
+        theme: "dark",
+        accentColor: "orange",
         cacheProvider: true,
         providerOptions,
       })
@@ -17,8 +19,9 @@ const web3Modal =
 const connectWalletHandle = async (
     setAccount,
     setChainId,
-    setProvider,
     setSigner,
+    setProvider,
+    setWalletIsConnected,
     setUserCalendar,
     setCommunityTracker,
     setCalendarFactory,
@@ -32,11 +35,11 @@ const connectWalletHandle = async (
     const accounts = await library.listAccounts();
     const network = await library.getNetwork();
     if (accounts) setAccount(accounts[0]);
-    console.log(provider, library, signer, accounts, network);
 
-    setChainId(network.chainId);
-    setSigner(signer);
-    setProvider(library);
+    setChainId(() => network.chainId);
+    setSigner(() => signer);
+    setProvider(() => library);
+    setWalletIsConnected(() => true);
 
     const communityTracker = new ethers.Contract(
       process.env.NEXT_PUBLIC_COMMUNITY_TRACKER,
@@ -56,7 +59,7 @@ const connectWalletHandle = async (
     console.log('accounts[0] ', accounts[0]);
     const userCalAddr = await calFactory.getUserCalendarClone(accounts[0]);
     console.log('user cal addr ', userCalAddr);
-    if (userCalAddr) {
+    if (userCalAddr != "0x0000000000000000000000000000000000000000") {
       setUserCalendar(new ethers.Contract(
         userCalAddr,
         UserCalendar.abi,
@@ -65,17 +68,23 @@ const connectWalletHandle = async (
       setUserCalAddress(userCalAddr);
     }
 
-
-    // console.log(account, chainId);
+    setUserCalendar(
+      new ethers.Contract(
+        process.env.NEXT_PUBLIC_USER_CALENDAR,
+        UserCalendar.abi,
+        library.getSigner()
+      )
+    );
   } catch (error) {
     console.log(error);
+    return error;
   }
 };
 
-const disconnectWalletHandle = async (setAccount, setChainId) => {
+const disconnectWalletHandle = async (setAccount, setWalletIsConnected) => {
   await web3Modal.clearCachedProvider();
   setAccount();
-  setChainId();
+  setWalletIsConnected(() => false);
 };
 
 const signAndExecuteHandle = async (

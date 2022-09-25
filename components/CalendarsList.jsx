@@ -3,7 +3,7 @@ export default function CalendarsList({ text, click }) {
       <div
         className="flex m-4"
       >
-        todo: List of calendars
+        {/* todo: List of calendars */}
       </div>
     );
   }

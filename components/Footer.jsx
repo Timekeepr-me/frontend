@@ -5,7 +5,7 @@ import Link from "next/link";
 const Footer = () => {
   const context = useContext(WalletContext);
   return (
-    <footer className="flext flex-col align-center justify-center m-auto text-center bg-[#2f2f2f] text-white p-5">
+    <footer className="flext flex-col align-center justify-center mx-auto text-center bg-[#2f2f2f] text-white px-5 py-10">
       {context.account ? (
         <p className="text-2xl font-heavier">
           <Link href="/dashboard">Dashboard</Link> |{" "}
