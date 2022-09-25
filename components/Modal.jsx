@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import Button from "./Button";
 import BookingForm from "./BookingForm";
 
-export default function Modal({ title, body, isError }) {
+export default function Modal({ title, body, isError, btnText }) {
   const [showModal, setShowModal] = useState(false);
-  title = "Alert!";
-  body = <BookingForm />;
-  isError = false;
+  !btnText ? (btnText = "Schedule") : btnText;
+  // title = "Alert!";
+  // body = <BookingForm />;
+  // isError = false;
 
   const handleCloseModal = () => {
     setShowModal(() => false);
@@ -18,7 +19,7 @@ export default function Modal({ title, body, isError }) {
         className="flex bg-[#2a2a2a] px-2.5 py-0 text-xs m-auto rounded-full border border-black text-ternary my-1"
         onClick={() => setShowModal(true)}
       >
-        Schedule
+        {btnText}
       </button>
       {/* <button click={() => setShowModal(true)}>Book</button> */}
 
@@ -28,7 +29,7 @@ export default function Modal({ title, body, isError }) {
             <div className="flex flex-col justify-center items-center relative w-fit my-6 mx-auto max-w-md p-3 bg-[#2a2a2a] text-white rounded-xl border border-secondary shadow-2xl h-fit">
               {/*title*/}
               <div className="flex grid grid-cols-11">
-                <h4 className="flex justify-center items-center col-start-6 text-2xl">
+                <h4 className="flex justify-center items-center text-center col-start-6 text-2xl">
                   {title}
                 </h4>
                 <div className="flex justify-end align-end justify-end items-end col-start-11">
