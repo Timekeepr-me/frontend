@@ -11,6 +11,8 @@ const DateProvider = ({ children }) => {
   const [range, setRange] = useState("month");
   const daysInMonth = defaultDate.daysInMonth;
   const monthNum = defaultDate.month;
+  const dayNum = defaultDate.day;
+  const yearNum = defaultDate.year;
 
   const value = {
     defaultDate,
@@ -20,10 +22,9 @@ const DateProvider = ({ children }) => {
     daysInMonth,
     range,
     setRange,
+    yearNum,
   };
-  return (
-    <DateContext.Provider value={value}>{children}</DateContext.Provider>
-  );
+  return <DateContext.Provider value={value}>{children}</DateContext.Provider>;
 };
 
 export { DateContext, DateProvider };

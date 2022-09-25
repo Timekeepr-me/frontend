@@ -6,14 +6,15 @@ import Month from "../components/Month";
 import Button from "../components/Button";
 import { DateContext } from "../context/DateContext";
 import { WalletContext } from "../context/WalletContext";
+import { CalendarContext } from "../context/CalendarContext";
 
 const Calendar = () => {
-  const dateDontext = useContext(DateContext);
+  const dateContext = useContext(DateContext);
   const walletContext = useContext(WalletContext);
-  console.log(walletContext.walletIsConnected);
+  const calendarContext = useContext(CalendarContext);
 
   const renderRange = () => {
-    switch (dateDontext.range) {
+    switch (dateContext.range) {
       case "day":
         return <Day />;
         break;
@@ -29,15 +30,15 @@ const Calendar = () => {
   };
 
   const handleDayBtn = () => {
-    dateDontext.setRange("day");
+    dateContext.setRange("day");
   };
 
   const handleWeekBtn = () => {
-    dateDontext.setRange("week");
+    dateContext.setRange("week");
   };
 
   const handleMonthBtn = () => {
-    dateDontext.setRange("month");
+    dateContext.setRange("month");
   };
 
   return (
