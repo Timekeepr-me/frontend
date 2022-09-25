@@ -9,7 +9,7 @@ const calendarAbi = [
   "function readAvailability() external view returns (uint256[7][96] memory)",
   "function deleteAvailability(uint256 _day, uint256 _startTime, uint256 _endTime) external",
   "function readAppointments() external view returns (Appointment[] memory)",
-  "function deleteAppointment(uint256 _appointmentId) external",
+  "function deleteAppointment(uint256 _appointmentId) external"
 ];
 
 export { calendarFactoryAddress, calendarFactoryAbi, calendarAbi };
