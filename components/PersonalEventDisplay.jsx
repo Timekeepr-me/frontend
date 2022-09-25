@@ -1,27 +1,23 @@
 import react from "react";
 
-const PersonalEventDisplay = () => {
+const PersonalEventDisplay = ({ title, address, date, startTime, endTime }) => {
   return (
-    <div className="flex flex-col items-start justify center p-2">
+    <div className="flex flex-col align-center justify-center p-4  text-lg bg-ternary text-black rounded-xl">
       <div className="flex-row flex">
-        <h4>Title: </h4>
-        <p> Doctor</p>
+        <h4 className="font-bold mr-1.5">Attendees: </h4>
+        <p className="flex items-center text-xs">{address}</p>{" "}
       </div>
       <div className="flex-row flex">
-        <h4>Description: </h4>
-        <p>Dr. Dan</p>
+        <h4 className="font-bold mr-1.5">Date: </h4>
+        <p>{date}</p>
       </div>
       <div className="flex-row flex">
-        <h4>Attendees: </h4>
-        <p>0x0</p>{" "}
+        <h4 className="font-bold mr-1.5">Start time: </h4>
+        <p>{startTime}</p>
       </div>
       <div className="flex-row flex">
-        <h4>Start time: </h4>
-        <p>12:15pm</p>
-      </div>
-      <div className="flex-row flex">
-        <h4>End time: </h4>
-        <p>12:45pm</p>
+        <h4 className="font-bold mr-1.5">End time: </h4>
+        <p>{endTime}</p>
       </div>
     </div>
   );

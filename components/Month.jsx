@@ -11,7 +11,7 @@ const Month = () => {
   const dateContext = useContext(DateContext);
   const calendarContext = useContext(CalendarContext);
   const appointments = calendarContext.appointmentData;
-  console.log(appointments);
+  // console.log(appointments);
 
   // Create weekdays array
   const renderWeekdays = () => {
@@ -79,12 +79,9 @@ const Month = () => {
     for (let i = lastWeekday; i < 7; i++) {
       blocksArray.push("");
     }
-    console.log(blocksArray);
+    // console.log(blocksArray);
     return blocksArray;
   };
-  buildBlocksArray();
-
-  // map over appointments array if there are appointments
 
   const renderBlocks = () => {
     const blocksArray = buildBlocksArray();
@@ -107,17 +104,12 @@ const Month = () => {
                           <Modal
                             title={appointment[0]}
                             body={
-                              <div className="flex flex-col p-2 text-lg">
-                                <p>
-                                  Address:{" "}
-                                  <span className="text-sm">
-                                    {appointment[1]}
-                                  </span>
-                                </p>
-                                <p>Date: {appointment[2]}</p>
-                                <p>Start Time: {appointment[4]}</p>
-                                <p>End Time: {appointment[5]}</p>
-                              </div>
+                              <PersonalEventDisplay
+                                address={appointment[1]}
+                                date={`${dateContext.month}-${block.day}-${dateContext.yearNum}`}
+                                startTime={appointment[4]}
+                                endTime={appointment[5]}
+                              />
                             }
                             btnText={appointment[0]}
                           />
