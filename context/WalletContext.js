@@ -21,6 +21,9 @@ const WalletProvider = ({ children }) => {
   const [signer, setSigner] = useState();
   const [account, setAccount] = useState();
   const [chainId, setChainId] = useState();
+
+
+
   //use this to control error modal for wallet related actions (invalid chain)
   const [error, setError] = useState("");
   const [userCalendar, setUserCalendar] = useState();
