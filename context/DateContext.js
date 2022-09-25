@@ -21,7 +21,9 @@ const DateProvider = ({ children }) => {
     range,
     setRange,
   };
-  return <DateContext.Provider value={value}>{children}</DateContext.Provider>;
+  return (
+    <DateContext.Provider value={value}>{children}</DateContext.Provider>
+  );
 };
 
 export { DateContext, DateProvider };
