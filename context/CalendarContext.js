@@ -5,6 +5,8 @@ import { WalletContext } from "./WalletContext";
 import { getCalendar } from "./calendar-utils/readFunctions/calendar";
 import { getAvailability } from "./calendar-utils/readFunctions/availabilities";
 import { getAppointments } from "./calendar-utils/readFunctions/appointments";
+// appointmentData is hardcoded for development purpose
+import { appointmentData } from "../AppointmentData";
 
 //write methods:
 import { bookMeeting } from "./calendar-utils/writeFunctions/bookMeeting";
@@ -38,7 +40,9 @@ const CalendarProvider = ({ children }) => {
 
   //state for whether user has a calendar, and their calendar address.
   const [userHasCalendar, setUserHasCalendar] = useState(false);
-  const [calendarAddress, setCalendarAddress] = useState("0x0000000000000000000000000000000000000000");
+  const [calendarAddress, setCalendarAddress] = useState(
+    "0x0000000000000000000000000000000000000000"
+  );
   const [availability, setAvailabiltiy] = useState();
   const [appointments, setAppointments] = useState();
 
@@ -49,16 +53,13 @@ const CalendarProvider = ({ children }) => {
   const updateCalendar = () =>
     getCalendar(setUserHasCalendar, setCalendarAddress, signer, account);
 
-
   //if the user has a calendar, we load their availabilty and their meetings.
   const updateAvailability = () =>
     getAvailability(setAvailabiltiy, calendarAddress, signer, account);
 
-
   //finally, get the appointments.
   const updateAppointments = () =>
     getAppointments(setAppointments, calendarAddress, signer, account);
-
 
   useEffect(() => {
     updateCalendar();
@@ -77,6 +78,7 @@ const CalendarProvider = ({ children }) => {
     updateCalendar,
     updateAvailability,
     updateAppointments,
+    appointmentData,
   };
 
 

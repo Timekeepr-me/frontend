@@ -9,7 +9,7 @@ const getCalendar = async (
   account
 ) => {
   //if user not connected, terminate
-  if(isNullAccount(account))return;
+  if (isNullAccount(account)) return;
 
   try {
     const factoryContract = new ethers.Contract(
@@ -28,9 +28,8 @@ const getCalendar = async (
       setUserHasCalendar(true);
       setCalendarAddress(userCalendarAddress);
     }
-  }
-  catch(error) {
-    console.log(`CALENDAR FETCH ERROR: ${account}`)
+  } catch (error) {
+    console.log(`CALENDAR FETCH ERROR: ${account}`);
   }
 };
 
