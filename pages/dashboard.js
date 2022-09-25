@@ -152,7 +152,7 @@ const Dashboard = () => {
         <button className="p-3 border-2 rounded-md bg-white text-black" onClick={() => setShowModal(true)}>Edit Availability</button>
         <div className="grid grid-cols-8 h-full p-3 bg-gray-200 mb-8">
           <div className="col-start-2 col-span-7">
-            <AvailabilityWeek setAvailability={setAvailability} />
+            <AvailabilityWeek availabilityEncoded={availabilityEncoded} setAvailability={setAvailability} />
           </div>
         </div>
       </div>

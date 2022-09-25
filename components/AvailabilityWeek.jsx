@@ -1,10 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AvailabilityDay from './AvailabilityDay';
 import useMousePosition from '../hooks/useMousePosition';
 
-const AvailabilityWeek = ({ setAvailability }) => {
+const defaultAva = {0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}};
+
+const AvailabilityWeek = ({ setAvailability, availabilityEncoded }) => {
   const [start, setStart] = useState({});
-  const mousePosition = useMousePosition();
+  const [ava, setAva] = useState({...defaultAva});
+
+  useEffect(() => {
+    if (availabilityEncoded) {
+      setAva(transformAvaEncoded(availabilityEncoded));
+    }
+  }, [availabilityEncoded]);
+
+  const transformAvaEncoded = (avaEncoded) => {
+    const newAva = {...defaultAva}
+
+    for (let i = 0; i < avaEncoded.length; i += 7) {
+      let ava = avaEncoded.slice(i, i + 7);
+      const day = parseInt(ava.slice(0, 1));
+      const start = parseInt(ava.slice(1, 5));
+      const duration = parseInt(ava.slice(5));
+
+      const startIndex = parseInt(start) / 25;
+      for (let j = start; j < start + (25 * duration); j += 25) {
+        newAva[day][j] = true;
+      }
+    }
+    return newAva;
+  }
 
   const renderHourTitle = (hour) => {
     const isPM = hour >= 12;
@@ -23,15 +48,23 @@ const AvailabilityWeek = ({ setAvailability }) => {
     console.log('clicked: ', event.type, hour, quarter);
   }
 
-  const renderHours = () => {
+  const isAvailable = (day, hour, minute) => {
+    const dayMap = ava[day];
+    let timeKey = hour * 100;
+    timeKey += minute * 25;
+    return dayMap[timeKey];
+  }
+
+  const renderHours = (dayIndex) => {
     const HOURS = 24;
     const hoursRendered = [];
     for (let hour = 0; hour < HOURS; hour++) {
       hoursRendered.push(
-        <div className="flex flex-col h-5 border-t-2  border-black px-1" key={`hour-${hour}`}>
+        <div className="flex flex-col h-5 border-t-2  border-black" key={`hour-${hour}`}>
           {[0, 15, 30, 45].map((minute, i) => {
+            const highlight = isAvailable(dayIndex, hour, i);
             return (
-              <AvailabilityDay key={`${hour}-${i}`} hour={hour} i={i} />
+              <AvailabilityDay isHighlighted={highlight} key={`${hour}-${i}`} hour={hour} i={i} />
             )
           })}
         </div>
@@ -42,7 +75,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
   const renderWeekdays = () => {
     const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-    return weekdays.map((weekday) => {
+    return weekdays.map((weekday, dayIndex) => {
       return (
         <div
           key={weekday}
@@ -50,7 +83,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
         >
           <h3>{weekday}</h3>
           <div className="flex flex-col">
-            {renderHours()}
+            {renderHours(dayIndex)}
           </div>
         </div>
       );
@@ -64,6 +97,7 @@ const AvailabilityWeek = ({ setAvailability }) => {
     }
     return hoursLegend;
   }
+  console.log('ava ', ava);
 
   return (
     <div className="flex flex-row border-black border-8 rounded-xl bg-secondary ">
