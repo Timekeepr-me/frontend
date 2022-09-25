@@ -28,6 +28,7 @@ const Day = () => {
         return (
           <div
             className={`bg-${bgColorLogic} text-${textColorLogic} border-b-${borderB} border-black hover:bg-ternary hover:text-black`}
+            key={uuidv4()}
           >
             {hour < 10 ? `0${hour}:${interval}` : `${hour}:${interval}`}
             <Modal />

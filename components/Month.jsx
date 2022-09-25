@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import DateDisplay from "./DateDisplay";
 import Modal from "./Modal";
 import PersonalEventDisplay from "./PersonalEventDisplay";
 import { DateContext } from "../context/DateContext";
+import { CalendarContext } from "../context/CalendarContext";
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
 const Month = () => {
-  const context = useContext(DateContext);
+  const calendarContext = useContext(CalendarContext);
+  const dateContext = useContext(DateContext);
 
   // Create weekdays array
   const renderWeekdays = () => {
@@ -25,14 +27,14 @@ const Month = () => {
   const buildBlocksArray = () => {
     const blocksArray = [];
     const first = DateTime.fromObject({
-      year: context.year,
-      month: context.monthNum,
+      year: dateContext.year,
+      month: dateContext.monthNum,
       day: 1,
     }).toLocal();
     const last = DateTime.fromObject({
-      year: context.year,
-      month: context.monthNum,
-      day: context.daysInMonth,
+      year: dateContext.year,
+      month: dateContext.monthNum,
+      day: dateContext.daysInMonth,
     }).toLocal();
     const firstWeekday = first.weekday;
     const lastWeekday = last.weekday;
@@ -40,7 +42,7 @@ const Month = () => {
     for (let i = firstWeekday; i > 1; i--) {
       blocksArray.push("");
     }
-    for (let i = 0; i < context.daysInMonth; i++) {
+    for (let i = 0; i < dateContext.daysInMonth; i++) {
       // blocksArray.push(first.plus({ days: i }));
       if (i % 4 === 0) {
         blocksArray.push({ date: first.plus({ days: i }), events: 2 });
@@ -52,7 +54,7 @@ const Month = () => {
     for (let i = lastWeekday; i < 7; i++) {
       blocksArray.push("");
     }
-    console.log(blocksArray);
+    // console.log(blocksArray);
     return blocksArray;
   };
 
@@ -69,19 +71,23 @@ const Month = () => {
             <div className="flex items-end justify-end">{block.date.day}</div>
             {/* start rendering of events, if any */}
             {block.events > 0 ? (
-              <div className="flex justify-center align-center text-left text-sm">
+              <div className="flex justify-center align-center text-left text-xs">
                 <ul>
-                  <li className="bg-ternary text-black px-1 rounded mb-0.5 border border-black">
+                  <li>
                     <Modal
                       title="meeting 1"
                       body={<PersonalEventDisplay />}
                       btnText="meeting 1"
                     />
                   </li>
-                  <li className="bg-ternary text-black px-1 rounded mb-0.5 border border-black">
-                    Meeting Julia 5pm
+                  <li>
+                    <Modal
+                      title="Meeting Julia 5pm"
+                      body={<PersonalEventDisplay />}
+                      btnText="Meeting Julia 5pm"
+                    />
                   </li>
-                  <li className="bg-ternary text-black px-1 rounded mb-0.5 border border-black">
+                  <li className="bg-[#2a2a2a] text-ternary px-1 rounded-xl mb-0.5 border border-black text-center">
                     +2 more
                   </li>
                 </ul>
