@@ -24,4 +24,9 @@ const getAppointments = async (
   setAppointments(appointments);
 };
 
+
+
+
+
+
 export { getAppointments };

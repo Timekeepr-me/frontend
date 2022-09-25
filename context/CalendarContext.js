@@ -1,8 +1,31 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { WalletContext } from "./WalletContext";
+
+//read methods: 
 import { getCalendar } from "./calendar-utils/readFunctions/calendar";
 import { getAvailability } from "./calendar-utils/readFunctions/availabilities";
 import { getAppointments } from "./calendar-utils/readFunctions/appointments";
+
+//write methods:
+import { bookMeeting } from "./calendar-utils/writeFunctions/bookMeeting";
+
+
+
+
+/*
+  WARNING!!!! THE FOLLOWING HARDCODED APPOINTMENT PARAMS MUST BE FETCHED FROM THE
+  APPOINTMENT BOOKING FRONT-END FEATURE!
+*/
+
+
+const mockAppointmentParams = [
+  "Test appointment", //title
+  20220926, //date (Sept 26th, 2022)
+  1, //day (monday, 1st day of the week)
+  "0x082F2A37Bd9b510fC29E4e78dFaCC5d1069569ee", //attendee 
+  1715, //startTime (i = 15)
+  15, //duration
+]
 
 
 
@@ -21,7 +44,7 @@ const CalendarProvider = ({ children }) => {
 
   const account = walletContext.account;
   const signer = walletContext.signer;
-
+  const provider = walletContext.provider;
   //first, we find out whether the user has a calendar deployed. If they do, we set their calendar address.
   const updateCalendar = () =>
     getCalendar(setUserHasCalendar, setCalendarAddress, signer, account);
@@ -41,9 +64,12 @@ const CalendarProvider = ({ children }) => {
     updateCalendar();
     updateAvailability();
     updateAppointments();
-  }, [walletContext.account])
+    //bookMeeting(mockAppointmentParams, provider, account, calendarAddress, updateAppointments);
+  }, [walletContext.account, calendarAddress])
 
 
+
+  
 
   const value = {
     userHasCalendar,
@@ -52,6 +78,8 @@ const CalendarProvider = ({ children }) => {
     updateAvailability,
     updateAppointments,
   };
+
+
 
 
 
