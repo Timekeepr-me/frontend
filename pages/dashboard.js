@@ -40,6 +40,11 @@ const Dashboard = () => {
     const encodedString = await userCalendar.availabilityEncodedStr();
     console.log('encodedString -> ', encodedString);
     setAvailabilityEncoded(encodedString);
+
+    // setAvailability(transformEncoded(encodedString));
+  }
+  const transformEncoded = (encoded) => {
+
   }
 
   console.log('userCalendar ', userCalendar);
@@ -116,6 +121,7 @@ const Dashboard = () => {
     return dur;
   }
   console.log('availabilityEncoded ', availabilityEncoded);
+  console.log('availability -> ', availability);
   return (
     <div className="bg-gradient-to-b from-primary to-ternary">
       <div className="flex flex-col align-center justify-center m-10">
