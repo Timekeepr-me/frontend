@@ -40,6 +40,11 @@ const Dashboard = () => {
     const encodedString = await userCalendar.availabilityEncodedStr();
     console.log('encodedString -> ', encodedString);
     setAvailabilityEncoded(encodedString);
+
+    // setAvailability(transformEncoded(encodedString));
+  }
+  const transformEncoded = (encoded) => {
+
   }
 
   console.log('userCalendar ', userCalendar);
@@ -78,15 +83,11 @@ const Dashboard = () => {
     availability.forEach((day, i) => {
       day.forEach((block, j) => {
         console.log('block j', block, j);
-        let startTime = block[0] + '';
-        let endTime = block[1] + '';
-        if (startTime.length === 3) {
-          startTime = '0' + startTime;
-        }
-        if (endTime.length === 3) {
-          endTime = '0' + endTime;
-        }
-        availabilityString += j + startTime + endTime;
+        let startTime = to25Minute(block[0]);
+        let endTime = to25Minute(block[1]);
+        let duration = getDuration(startTime, endTime);
+        console.log("duration , start, end ", duration, startTime, endTime);
+        availabilityString += j + startTime + duration;
       });
     })
     try {
@@ -98,7 +99,29 @@ const Dashboard = () => {
       console.error('error on setAvailability: ', e);
     }
   }
+  const to25Minute = (time) => {
+    time = time+'';
+    if (time.length === 3) {
+      time = '0' + time;
+    }
+    const hour = time.slice(0, 2);
+    const minute = ((parseInt(time.slice(2)) / 15) * 25) + '';
+    if (minute.length === 1) {
+      minute = '0' + minute;
+    }
+    return hour + minute;
+  }
+  const getDuration = (start, end) => {
+    console.log('getDuration start end', start, end);
+
+    const dur = (parseInt(end) - parseInt(start)) / 25;
+    if ((dur+'').length === 1) {
+      dur = '0' + dur;
+    }
+    return dur;
+  }
   console.log('availabilityEncoded ', availabilityEncoded);
+  console.log('availability -> ', availability);
   return (
     <div className="bg-gradient-to-b from-primary to-ternary">
       <div className="flex flex-col align-center justify-center m-10">
@@ -135,7 +158,7 @@ const Dashboard = () => {
         <button className="p-3 border-2 rounded-md bg-white text-black" onClick={() => setShowModal(true)}>Edit Availability</button>
         <div className="grid grid-cols-8 h-full p-3 bg-gray-200 mb-8">
           <div className="col-start-2 col-span-7">
-            <AvailabilityWeek setAvailability={setAvailability} />
+            <AvailabilityWeek availabilityEncoded={availabilityEncoded} setAvailability={setAvailability} />
           </div>
         </div>
       </div>
