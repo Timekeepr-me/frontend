@@ -90,7 +90,6 @@ const Month = () => {
   const renderBlocks = () => {
     const blocksArray = buildBlocksArray();
     return blocksArray.map((block) => {
-      // if (typeof block.day === "number") {
       if (block !== "") {
         // logoc for today's date highlighting
         const defaultDate = dateContext.defaultDate;
