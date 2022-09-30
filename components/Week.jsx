@@ -40,7 +40,6 @@ const Week = () => {
   const buildWeekArray = () => {
     let days = dateContext.defaultDate.weekday;
     const first = dateContext.defaultDate.minus({ days: days - 1 });
-    const firstDay = first.day;
     let weekArray = [];
     for (let date = 0; date < 7; date++) {
       // mapping extracts appointments that match date in dateContext
@@ -59,7 +58,6 @@ const Week = () => {
           return null;
         }
       });
-
       // console.log(events);
 
       const filteredEvents = [];
@@ -69,13 +67,14 @@ const Week = () => {
         }
       }
 
-      weekArray.push({
-        // day: first.plus({ days: `${date}` }),
-        day: firstDay + date,
-        appointments: filteredEvents.length > 0 ? filteredEvents : null,
-      });
+      weekArray.push([
+        first.plus({ days: `${date}` }).day,
+        first.plus({ days: `${date}` }).monthShort,
+        first.plus({ days: `${date}` }).year,
+        filteredEvents.length > 0 ? filteredEvents : null,
+      ]);
     }
-    // console.log(weekArray);
+    console.log(weekArray);
     return weekArray;
   };
   // buildWeekArray();
@@ -84,9 +83,8 @@ const Week = () => {
     const weekArray = buildWeekArray();
     return weekArray.map((day, index) => {
       // map over array of appointments
-
-      const appointments = day.appointments
-        ? day.appointments.map((appointment) => {
+      const appointments = day[3]
+        ? day[3].map((appointment) => {
             return (
               <div className="flex justify-center align-center text-left text-xs">
                 <ul>
@@ -110,13 +108,15 @@ const Week = () => {
           })
         : null;
 
+      console.log(appointments);
+
       return (
         <div
           className="flex flex-col text-center border-r-2 border-black text-xl pt-1 hover:bg-ternary hover:text-black"
           key={uuidv4()}
         >
           <p>{weekdays(index)}</p>
-          <p>{day.day}</p>
+          <p>{day[0]}</p>
           {appointments}
         </div>
       );
