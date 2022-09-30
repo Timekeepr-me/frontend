@@ -7,7 +7,13 @@ const DateDisplay = () => {
   const context = useContext(DateContext);
 
   const renderDate = () => {
-    return context.defaultDate.toLocaleString(DateTime.DATE_FULL);
+    // return context.defaultDate.toLocaleString(DateTime.DATE_FULL);
+    const month = context.defaultDate.monthLong;
+    const day = context.defaultDate.day;
+    const year = context.defaultDate.year;
+    return `${month} ${context.range === "day" ? day : ""}${
+      context.range === "day" ? "," : ""
+    } ${year}`;
   };
 
   const handleToday = () => {
