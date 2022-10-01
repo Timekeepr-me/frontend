@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import DateDisplay from "./DateDisplay";
 import Modal from "./Modal";
-import PersonalEventDisplay from "./PersonalEventDisplay";
+import EventsDailyMonthly from "./EventsDailyMonthly";
+// import PersonalEventDisplay from "./PersonalEventDisplay";
 import { DateContext } from "../context/DateContext";
 import { CalendarContext } from "../context/CalendarContext";
 import { DateTime } from "luxon";
@@ -90,7 +91,7 @@ const Month = () => {
     return blocksArray.map((block) => {
       if (block !== "") {
         // logoc for today's date highlighting
-        const defaultDate = dateContext.defaultDate;
+        const defaultDate = dateContext.today;
         const bgColor =
           block.day === defaultDate.day &&
           block.month === dateContext.today.month
@@ -108,7 +109,7 @@ const Month = () => {
           >
             <div className="flex items-end justify-end">{block.day}</div>
             {/* start rendering of events, if any */}
-            {block.appointments
+            {/* {block.appointments
               ? block.appointments.map((appointment) => {
                   return (
                     <div className="flex justify-center align-center text-left text-xs">
@@ -131,7 +132,19 @@ const Month = () => {
                     </div>
                   );
                 })
-              : null}
+              : null} */}
+            {/* EventsDailyMonthly logic. Render any events if true */}
+            {block.appointments ? (
+              <div className="px-1">
+                <Modal
+                  btnText={`${block.appointments.length} ${
+                    block.appointments.length > 1 ? "events" : "event"
+                  }`}
+                  title={`${block.appointments.length} appointments`}
+                  body={<EventsDailyMonthly events={block.appointments} />}
+                />
+              </div>
+            ) : null}
           </div>
         );
       } else {

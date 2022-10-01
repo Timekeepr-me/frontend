@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import Button from "./Button";
-import BookingForm from "./BookingForm";
 
-export default function Modal({ title, body, isError, btnText }) {
+export default function Modal({ title, body, isError, btnText = "Schedule" }) {
   const [showModal, setShowModal] = useState(false);
-  !btnText ? (btnText = "Schedule") : btnText;
-  // title = "Alert!";
-  // body = <BookingForm />;
-  // isError = false;
 
   const handleCloseModal = () => {
     setShowModal(() => false);
@@ -16,7 +11,7 @@ export default function Modal({ title, body, isError, btnText }) {
   return (
     <>
       <button
-        className="flex justify-center w-5/6 m-auto px-2.5 py-0.5 text-base rounded-md border border-black text-ternary my-1 bg-[#2a2a2a]"
+        className="flex justify-center w-full m-auto px-2.5 py-0.5 text-base rounded-md border border-black text-ternary my-1 bg-[#2a2a2a]"
         onClick={() => setShowModal(true)}
       >
         {btnText}

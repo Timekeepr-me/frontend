@@ -78,6 +78,7 @@ const Week = () => {
       ]);
     }
     console.log(weekArray);
+
     return weekArray;
   };
   // buildWeekArray();
@@ -88,8 +89,14 @@ const Week = () => {
       // map over array of appointments
       const appointments = day[3]
         ? day[3].map((appointment) => {
+            // date display logic
+            const apptDay = Number(appointment[2].substr(2, 2));
+            const apptMonth = Number(appointment[2].substr(0, 2));
+            const apptYear = Number(appointment[2].substr(4, 4));
+            const date = dateContext.makeDate(apptYear, apptDay, apptMonth);
+
             return (
-              <div className="flex justify-center align-center text-left text-xs">
+              <div className="px-2 py-1">
                 <ul className="w-full">
                   <li className="">
                     <Modal
@@ -97,7 +104,7 @@ const Week = () => {
                       body={
                         <PersonalEventDisplay
                           address={appointment[1]}
-                          date={`${dateContext.month}-${day.day}-${dateContext.yearNum}`}
+                          date={`${date.monthShort} ${date.day}, ${date.year}`}
                           startTime={appointment[4]}
                           endTime={appointment[5]}
                         />
@@ -119,15 +126,13 @@ const Week = () => {
       // logic for Tailwind classes
       const bgColor = dateLogic ? "ternary" : "secondary";
       const textColor = dateLogic ? "black" : "white";
-      console.log(dateLogic);
-      console.log(day[1], dateContext.today.monthShort);
       return (
         <div
           className={`flex flex-col text-center border-r-2 border-black text-xl pt-1 bg-${bgColor} text-${textColor} hover:bg-ternary hover:text-black`}
           key={uuidv4()}
         >
           <p>{weekdays(index)}</p>
-          <p>{day[0]}</p>
+          <p className="mb-2">{day[0]}</p>
           {appointments}
         </div>
       );
