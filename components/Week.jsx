@@ -40,25 +40,27 @@ const Week = () => {
   const buildWeekArray = () => {
     let days = dateContext.defaultDate.weekday;
     const first = dateContext.defaultDate.minus({ days: days - 1 });
+    const date = (i) => first.plus({ days: days + i });
     let weekArray = [];
-    for (let date = 0; date < 7; date++) {
+    for (let i = 0; i < 7; i++) {
       // mapping extracts appointments that match date in dateContext
       const events = appointments.map((appointment) => {
         // create constants for easier readability
         let apptDate = appointment[2].substr(2, 2);
         let apptMonth = appointment[2].substr(0, 2);
         let apptYear = appointment[2].substr(4, 4);
+        // console.log(appointment, date(i).day, date(i).month, date(i).year);
         if (
-          apptMonth == dateContext.monthNum &&
-          apptDate == date &&
-          apptYear == dateContext.yearNum
+          apptMonth == date(i).month &&
+          apptDate == date(i).day &&
+          apptYear == date(i).year
         ) {
           return appointment;
         } else {
           return null;
         }
       });
-      // console.log(events);
+      console.log("events", events);
 
       const filteredEvents = [];
       for (let i = 0; i < events.length; i++) {
@@ -66,11 +68,12 @@ const Week = () => {
           filteredEvents.push(events[i]);
         }
       }
+      console.log(filteredEvents);
 
       weekArray.push([
-        first.plus({ days: `${date}` }).day,
-        first.plus({ days: `${date}` }).monthShort,
-        first.plus({ days: `${date}` }).year,
+        date(i).day,
+        date(i).monthShort,
+        date(i).year,
         filteredEvents.length > 0 ? filteredEvents : null,
       ]);
     }
@@ -108,11 +111,25 @@ const Week = () => {
           })
         : null;
 
-      console.log(appointments);
+      // logoc for today's date highlighting
+      const defaultDate = dateContext.defaultDate;
+      const bgColor =
+        day[0] === defaultDate.day &&
+        day[1].month === today.monthShort &&
+        day[2] === defaultDate.year
+          ? "ternary"
+          : "secondary";
+      const textColor =
+        day[0] === defaultDate.day &&
+        day[1].month === today.monthShort &&
+        day[2] === defaultDate.year
+          ? "black"
+          : "white";
+      console.log(bgColor, textColor);
 
       return (
         <div
-          className="flex flex-col text-center border-r-2 border-black text-xl pt-1 hover:bg-ternary hover:text-black"
+          className={`flex flex-col text-center border-r-2 border-black text-xl pt-1 bg-${"blue"} text-${textColor} hover:bg-ternary hover:text-black`}
           key={uuidv4()}
         >
           <p>{weekdays(index)}</p>
