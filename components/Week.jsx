@@ -39,8 +39,8 @@ const Week = () => {
 
   const buildWeekArray = () => {
     let days = dateContext.defaultDate.weekday;
-    const first = dateContext.defaultDate.minus({ days: days - 1 });
-    const date = (i) => first.plus({ days: days + i });
+    const firstWeekday = dateContext.defaultDate.minus({ days: days - 1 });
+    const date = (i) => firstWeekday.plus({ days: i });
     let weekArray = [];
     for (let i = 0; i < 7; i++) {
       // mapping extracts appointments that match date in dateContext
@@ -60,7 +60,7 @@ const Week = () => {
           return null;
         }
       });
-      console.log("events", events);
+      // console.log("events", events);
 
       const filteredEvents = [];
       for (let i = 0; i < events.length; i++) {
@@ -68,7 +68,7 @@ const Week = () => {
           filteredEvents.push(events[i]);
         }
       }
-      console.log(filteredEvents);
+      // console.log(filteredEvents);
 
       weekArray.push([
         date(i).day,
@@ -111,25 +111,19 @@ const Week = () => {
           })
         : null;
 
-      // logoc for today's date highlighting
-      const defaultDate = dateContext.defaultDate;
-      const bgColor =
-        day[0] === defaultDate.day &&
-        day[1].month === today.monthShort &&
-        day[2] === defaultDate.year
-          ? "ternary"
-          : "secondary";
-      const textColor =
-        day[0] === defaultDate.day &&
-        day[1].month === today.monthShort &&
-        day[2] === defaultDate.year
-          ? "black"
-          : "white";
-      console.log(bgColor, textColor);
-
+      // logic to match dates
+      const dateLogic =
+        day[0] === dateContext.today.day &&
+        day[1] === dateContext.today.monthShort &&
+        day[2] === dateContext.today.year;
+      // logic for Tailwind classes
+      const bgColor = dateLogic ? "ternary" : "secondary";
+      const textColor = dateLogic ? "black" : "white";
+      console.log(dateLogic);
+      console.log(day[1], dateContext.today.monthShort);
       return (
         <div
-          className={`flex flex-col text-center border-r-2 border-black text-xl pt-1 bg-${"blue"} text-${textColor} hover:bg-ternary hover:text-black`}
+          className={`flex flex-col text-center border-r-2 border-black text-xl pt-1 bg-${bgColor} text-${textColor} hover:bg-ternary hover:text-black`}
           key={uuidv4()}
         >
           <p>{weekdays(index)}</p>

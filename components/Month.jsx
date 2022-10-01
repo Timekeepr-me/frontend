@@ -7,8 +7,6 @@ import { CalendarContext } from "../context/CalendarContext";
 import { DateTime } from "luxon";
 import { v4 as uuidv4 } from "uuid";
 
-const today = DateTime.local();
-
 const Month = () => {
   const dateContext = useContext(DateContext);
   const calendarContext = useContext(CalendarContext);
@@ -94,11 +92,13 @@ const Month = () => {
         // logoc for today's date highlighting
         const defaultDate = dateContext.defaultDate;
         const bgColor =
-          block.day === defaultDate.day && block.month === today.month
+          block.day === defaultDate.day &&
+          block.month === dateContext.today.month
             ? "ternary"
             : "secondary";
         const textColor =
-          block.day === defaultDate.day && block.month === today.month
+          block.day === defaultDate.day &&
+          block.month === dateContext.today.month
             ? "black"
             : "white";
         return (

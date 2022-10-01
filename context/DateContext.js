@@ -2,10 +2,10 @@ import React, { createContext, useState } from "react";
 import { DateTime } from "luxon";
 
 const DateContext = createContext();
-const date = DateTime.local();
+const today = DateTime.local();
 
 const DateProvider = ({ children }) => {
-  const [defaultDate, setDefaultDate] = useState(date);
+  const [defaultDate, setDefaultDate] = useState(today);
   const [month, setMonth] = useState(defaultDate.month);
   const [year, setYear] = useState(defaultDate.year);
   const [range, setRange] = useState("month");
@@ -15,6 +15,7 @@ const DateProvider = ({ children }) => {
   const yearNum = defaultDate.year;
 
   const value = {
+    today,
     defaultDate,
     setDefaultDate,
     month,
