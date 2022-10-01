@@ -112,7 +112,7 @@ const Month = () => {
               ? block.appointments.map((appointment) => {
                   return (
                     <div className="flex justify-center align-center text-left text-xs">
-                      <ul>
+                      <ul className="w-full">
                         <li>
                           <Modal
                             title={appointment[0]}

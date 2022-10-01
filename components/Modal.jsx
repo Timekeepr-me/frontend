@@ -16,7 +16,7 @@ export default function Modal({ title, body, isError, btnText }) {
   return (
     <>
       <button
-        className="block m-auto px-2.5 py-0.5 text-base rounded-md border border-black text-ternary my-1 bg-[#2a2a2a]"
+        className="flex justify-center w-5/6 m-auto px-2.5 py-0.5 text-base rounded-md border border-black text-ternary my-1 bg-[#2a2a2a]"
         onClick={() => setShowModal(true)}
       >
         {btnText}

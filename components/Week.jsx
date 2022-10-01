@@ -90,8 +90,8 @@ const Week = () => {
         ? day[3].map((appointment) => {
             return (
               <div className="flex justify-center align-center text-left text-xs">
-                <ul>
-                  <li>
+                <ul className="w-full">
+                  <li className="">
                     <Modal
                       title={appointment[0]}
                       body={
