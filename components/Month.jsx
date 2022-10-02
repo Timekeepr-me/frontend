@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import DateDisplay from "./DateDisplay";
 import Modal from "./Modal";
-import PersonalEventDisplay from "./PersonalEventDisplay";
+import EventsDailyMonthly from "./EventsDailyMonthly";
+// import PersonalEventDisplay from "./PersonalEventDisplay";
 import { DateContext } from "../context/DateContext";
 import { CalendarContext } from "../context/CalendarContext";
 import { DateTime } from "luxon";
@@ -45,7 +46,7 @@ const Month = () => {
       blocksArray.push("");
     }
     // loop over appointments array, add appointment to object if dates match
-    for (let date = 0; date < dateContext.daysInMonth; date++) {
+    for (let date = 1; date <= dateContext.daysInMonth; date++) {
       // mapping extracts appointments that matches date in dateContext
       const events = appointments.map((appointment) => {
         let apptDate = appointment[2].substr(2, 2);
@@ -72,6 +73,8 @@ const Month = () => {
 
       blocksArray.push({
         day: date,
+        month: dateContext.defaultDate.month,
+        year: dateContext.defaultDate.year,
         appointments: filteredEvents.length > 0 ? filteredEvents : null,
       });
     }
@@ -79,27 +82,38 @@ const Month = () => {
     for (let i = lastWeekday; i < 7; i++) {
       blocksArray.push("");
     }
-    // console.log(blocksArray);
+
     return blocksArray;
   };
 
   const renderBlocks = () => {
     const blocksArray = buildBlocksArray();
     return blocksArray.map((block) => {
-      // if (typeof block.day === "number") {
       if (block !== "") {
+        // logoc for today's date highlighting
+        const defaultDate = dateContext.today;
+        const bgColor =
+          block.day === defaultDate.day &&
+          block.month === dateContext.today.month
+            ? "ternary"
+            : "secondary";
+        const textColor =
+          block.day === defaultDate.day &&
+          block.month === dateContext.today.month
+            ? "black"
+            : "white";
         return (
           <div
             key={uuidv4()}
-            className="flex flex-col  border-2 border-black rounded-lg px-2 bg-secondary hover:bg-ternary hover:text-black"
+            className={`flex flex-col border-2 border-black rounded-lg px-2 bg-${bgColor} text-${textColor} hover:bg-ternary hover:text-black`}
           >
             <div className="flex items-end justify-end">{block.day}</div>
             {/* start rendering of events, if any */}
-            {block.appointments
+            {/* {block.appointments
               ? block.appointments.map((appointment) => {
                   return (
                     <div className="flex justify-center align-center text-left text-xs">
-                      <ul>
+                      <ul className="w-full">
                         <li>
                           <Modal
                             title={appointment[0]}
@@ -118,7 +132,19 @@ const Month = () => {
                     </div>
                   );
                 })
-              : null}
+              : null} */}
+            {/* EventsDailyMonthly logic. Render any events if true */}
+            {block.appointments ? (
+              <div className="px-1">
+                <Modal
+                  btnText={`${block.appointments.length} ${
+                    block.appointments.length > 1 ? "events" : "event"
+                  }`}
+                  title={`${block.appointments.length} appointments`}
+                  body={<EventsDailyMonthly events={block.appointments} />}
+                />
+              </div>
+            ) : null}
           </div>
         );
       } else {
